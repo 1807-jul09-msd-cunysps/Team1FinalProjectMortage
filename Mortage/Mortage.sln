@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27703.2035
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mortage", "Mortage\Mortage.csproj", "{F40C7EC7-5989-42E0-88F4-D43FD42461ED}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F40C7EC7-5989-42E0-88F4-D43FD42461ED}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F40C7EC7-5989-42E0-88F4-D43FD42461ED}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F40C7EC7-5989-42E0-88F4-D43FD42461ED}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F40C7EC7-5989-42E0-88F4-D43FD42461ED}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {1660C506-33A8-41F0-A99A-BC7E9777D619}
+	EndGlobalSection
+EndGlobal
