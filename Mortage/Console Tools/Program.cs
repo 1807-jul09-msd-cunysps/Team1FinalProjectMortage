@@ -18,19 +18,17 @@ namespace Console_Tools
             IOrganizationService service = (IOrganizationService)
             client.OrganizationWebProxyClient ?? (IOrganizationService)client.OrganizationServiceProxy;
 
-            CreateAttributeRequest mortgageAutoNumber = new CreateAttributeRequest
+            UpdateAttributeRequest mortgageAutoNumber = new UpdateAttributeRequest
             {
                 EntityName = "mortage_mortgage",
                 Attribute = new StringAttributeMetadata
                 {
                     //Define the format of the attribute
-                    AutoNumberFormat = "-{RANDSTRING:10}-{DATETIMEUTC:yyyyMM}{SEQNUM:6}",
-                    LogicalName = "mortage_mortgageautonumber",
-                    SchemaName = "mortage_mortgageautonumber",
-                    RequiredLevel = new AttributeRequiredLevelManagedProperty(AttributeRequiredLevel.ApplicationRequired),
-                    MaxLength = 100, // The MaxLength defined for the string attribute must be greater than the length of the AutoNumberFormat value, that is, it should be able to fit in the generated value.
-                    DisplayName = new Label("Mortgage Auto Number", 1033),
-                    Description = new Label("Auto mortgage number for this mortgage.", 1033)
+                    AutoNumberFormat = "{DATETIMEUTC:yyyyMM}-{SEQNUM:6}",
+                    LogicalName = "mortage_name",
+                    SchemaName = "mortage_name",
+                    DisplayName = new Label("Mortgage Number", 1033),
+                    Description = new Label("System generated mortgage number for this mortgage.", 1033)
                 }
             };
             var result = service.Execute(mortgageAutoNumber);
@@ -41,6 +39,27 @@ namespace Console_Tools
             {
                 Console.WriteLine($"Key: {item.Key} — Value: {item.Value}");
             }
+
+            //Money totalAmount = new Money(100000);
+            //decimal apr = 0.1M + 0.05M;
+            //int mortageTerm = 144;
+            //decimal periodicInterest = (apr / 12);
+
+            //Money monthlyPayment = new Money(
+            //    (decimal)
+            //        (
+            //        (double)(totalAmount.Value * periodicInterest) /
+            //            (
+            //                1 - Math.Pow((double)(1 + periodicInterest), -(double)mortageTerm)
+            //            )
+            //        )
+            //    );
+
+            //Console.WriteLine($"Total amount: {totalAmount}");
+            //Console.WriteLine($"APR: {apr}");
+            //Console.WriteLine($"Periodic interest: {periodicInterest}");
+            //Console.WriteLine($"Total term in months: {mortageTerm}");
+            //Console.WriteLine($"Monthly payment:{monthlyPayment.Value}");
 
             Console.Read();
         }
