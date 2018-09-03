@@ -9,6 +9,8 @@ namespace Mortage
     {
         public static void Register(HttpConfiguration config)
         {
+            //Allow Cors
+            config.EnableCors();
             // Web API configuration and services
 
             // Web API routes

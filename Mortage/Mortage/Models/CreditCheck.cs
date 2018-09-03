@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using Microsoft.Xrm.Sdk;
+using Microsoft.Xrm.Tooling.Connector;
 
 namespace Mortage
 {
@@ -12,6 +14,6 @@ namespace Mortage
      * **/
     public class CreditCheck
     {
-
+        public int riskScore { get; set; }
     }
 }
