@@ -10,6 +10,7 @@ namespace Mortage.Models
      * **/
     public class Apr
     {
-        public int apr{ get; set; }
+        public double apr{ get; set; }
+        //public DateTime time { get; set; }
     }
 }
