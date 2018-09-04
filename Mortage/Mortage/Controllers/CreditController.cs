@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Text;
 using System.Web.Http;
 using System.Web.Http.Cors;
 
@@ -15,9 +16,17 @@ namespace Mortage.Controllers
     {
         CreditCheck num = new CreditCheck();
         [HttpGet]
-        public IHttpActionResult Get() {
+        public IHttpActionResult Get(string ssn) {
             try {
-                Random ranNum = new Random();
+                //Convert ssn to an integer
+                int ssnNum = 0;
+
+                foreach (var bytes in Encoding.ASCII.GetBytes(ssn))
+                {
+                    ssnNum += bytes;
+                }
+
+                Random ranNum = new Random(ssnNum);
                 int riskRan = ranNum.Next(1, 101);
                 num.riskScore = riskRan;
                 return Ok(num);
