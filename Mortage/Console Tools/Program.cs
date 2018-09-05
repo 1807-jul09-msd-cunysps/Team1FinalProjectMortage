@@ -14,7 +14,27 @@ namespace Console_Tools
     {
         static void Main(string[] args)
         {
-            
+            decimal periodicInterest = (0.09M / 12);
+            int mortgageTerm = 144;
+            Money mortgageAmount = new Money(100000);
+
+            // Calculate the monthly payment
+
+            // Amount with interest
+            var amountWithInterest = 100000.0M * periodicInterest;
+
+            Money monthlyPayment = new Money(
+                        (decimal)
+                            (
+                            ((double)((mortgageAmount.Value * periodicInterest)) /
+                                (
+                                    1 - Math.Pow((double)(1 + periodicInterest), -Convert.ToDouble(mortgageTerm))
+                                )
+                            )
+                            )
+                        );
+
+            Console.WriteLine(monthlyPayment.Value);
             Console.Read();
         }
     }
