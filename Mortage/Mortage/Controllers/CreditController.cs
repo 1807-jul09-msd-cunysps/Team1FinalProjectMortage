@@ -15,8 +15,8 @@ namespace Mortage.Controllers
     public class CreditController : ApiController
     {
         CreditCheck num = new CreditCheck();
-        [HttpPost]
-        public IHttpActionResult Post(string ssn) {
+        [HttpGet]
+        public IHttpActionResult Get(string ssn) {
             try {
                 //Convert ssn to an integer
                 int ssnNum = 0;
