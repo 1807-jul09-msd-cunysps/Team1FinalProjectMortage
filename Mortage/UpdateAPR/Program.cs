@@ -51,12 +51,8 @@ namespace UpdateAPR
             // update the configuration.
             service.Update(apr);
 
-            Console.WriteLine(apr);
-            Console.Read();
+            //Console.WriteLine(apr);
+            //Console.Read();
         }
     }
 }
-
-
-//ColumnSet attributes = service.Retrieve( (string "mortage_configurations", Guid("9F8444F0-79B0-E811-A95B-000D3A3655EC"), attributes);
-//{ "name", "mortgage_value" });
