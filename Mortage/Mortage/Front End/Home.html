@@ -1,0 +1,312 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width = device-width,initial-
+          scale = 1" />
+
+    <title>
+        Mortàge
+    </title>
+
+    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" />
+
+    <style>
+        #top {
+
+            height :1000px;
+            width: 100%;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        #info{
+            background-color:white;
+        }
+        #left{
+            float: left;
+        }
+        #leftTable {
+            float: left;
+            background-color:white;
+            width:40%;
+        }
+        #right{
+            float:right;
+            background-color:white;
+        }
+        #rightTable{
+            float:right;
+            background-color:white;
+            width:40%;
+        }
+        #bottomTable {
+
+            background-color: white;
+
+        }
+
+        #image{
+           height:160px;
+           width:100%;
+
+        }
+
+            
+    </style>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
+    <script>
+
+
+
+        function loadHome() {
+            $(document).ready(function () {
+                $('#mortgage').hide(500);
+                $('#home').show(500);
+                $('#service').hide(500);
+                $('#apply').hide(500);
+
+            });
+        }
+        function loadMortgage() {
+            $(document).ready(function () {
+                $('#mortgage').show(500);
+                $('#home').hide(500);
+                $('#service').hide(500);
+                $('#apply').hide(500);
+
+            });
+        }
+        function loadApply() {
+            $(document).ready(function () {
+                $('#mortgage').hide(500);
+                $('#home').hide(500);
+                $('#service').hide(500);
+                $('#apply').show(500);
+
+            });
+        }
+        function loadService() {
+            $(document).ready(function () {
+                $('#mortgage').hide(500);
+                $('#home').hide(500);
+                $('#service').show(500);
+                $('#apply').hide(500);
+
+            });
+        }
+
+        
+
+
+    </script>
+
+</head>
+<body onload="loadHome()">
+
+
+    <img id="image" src="Background.jpg" class="img-fluid" alt="Responsive image">
+
+    <nav class="navbar navbar-inverse">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="#">WebSiteName</a>
+            </div>
+            <ul class="nav navbar-nav">
+                <li class="active" onclick="loadHome()"><a href="#">Home</a></li>
+                <li onclick="loadMortgage()"><a href="#">My Mortgages</a></li>
+                <li onclick="loadApply()"><a href="#">Apply</a></li>
+                <li onclick="loadService()"><a href="#">Customer Service</a></li>
+                <li id="logout"><a href="Login.html">Logout</a></li>
+            </ul>
+        </div>
+    </nav>
+    <div class="container">
+
+
+        <br /><br />
+
+
+              <div class="jumbotron" id="top">
+
+                  <div id="home">
+
+                      <div class="jumbotron" id="info">
+                          <h2><div id="welcome">Welcome Back, John Doe</div></h2>
+                          <h4><div id="general">Total Balance:$0.00<br />Number of Mortgages: 0<br />Active Cases: 0<br /></div></h4>
+                      </div>
+                      <div id="homecontent">
+
+                          <div id="left"><h2>Current APR: 1234</h2><br />stuff<br />stuff<br />stuff<br /></div>
+                          <div class="jumbotron" id="right">
+                              <h2>Recent Mortgages</h2>
+                              <table class="table table-hover">
+                                  <thead>
+                                      <tr>
+                                          <th>Mortgage Name</th>
+                                          <th>Mortgage Balance</th>
+                                          <th>Next Payement Due</th>
+                                      </tr>
+                                  </thead>
+                                  <tbody>
+                                      <tr>
+                                          <td>example house</td>
+                                          <td>$120.00</td>
+                                          <td>11/11/11</td>
+                                      </tr>
+                                      <tr>
+                                          <td>shows</td>
+                                          <td>$120.00</td>
+                                          <td>11/11/11</td>
+                                      </tr>
+                                      <tr>
+                                          <td>max</td>
+                                          <td>$120.00</td>
+                                          <td>11/11/11</td>
+                                      </tr>
+                                      <tr>
+                                          <td>five</td>
+                                          <td>$120.00</td>
+                                          <td>11/11/11</td>
+                                      </tr>
+                                      <tr>
+                                          <td>rows</td>
+                                          <td>$120.00</td>
+                                          <td>11/11/11</td>
+                                      </tr>
+
+                                  </tbody>
+                              </table>
+                          </div>
+
+                      </div>
+                  </div>
+
+                  <div id="mortgage" style="display:none">
+                      <div class="jumbotron" id="info">
+                          <h2><div id="balance">Total Balance: $0.00</div></h2>
+                          <h3><div id="LoanNum">Number of outstanding loans: 0<br /></div></h3>
+                      </div>
+
+
+                      <div id="homecontent">
+                          <div class="jumbotron" id="leftTable">
+                              <h2>Mortgage Applications</h2>
+                              <table class="table table-hover">
+                                  <thead>
+                                      <tr>
+                                          <th>Mortgage Application Name</th>
+                                          <th>Status</th>
+                                      </tr>
+                                  </thead>
+                                  <tbody>
+                                      <tr>
+                                          <td>example house</td>
+                                          <td>declined <button>Reason</button></td>
+                                      </tr>
+
+                                  </tbody>
+                              </table>
+                          </div>
+                          <div class="jumbotron" id="rightTable">
+                              <h2>Active Mortgages</h2>
+                              <table class="table table-hover">
+                                  <thead>
+                                      <tr>
+                                          <th>Mortgage Name</th>
+                                          <th>Mortgage Balance</th>
+                                      </tr>
+                                  </thead>
+                                  <tbody>
+                                      <tr>
+                                          <td>example house</td>
+                                          <td>$120.00 <button>Make A payment</button></td>
+
+                                      </tr>
+
+                                  </tbody>
+                              </table>
+                          </div>
+                      </div>
+
+                  </div>
+
+
+                  <div id="apply" style="display:none">
+                      <h1>Apply for a new Mortgage:</h1>
+
+                      <br /><br /><br />
+                      Amount:<br /><input type="text" placeholder="$0.00" />
+                      <br />
+                      Currency:<br />
+                      <select>
+                          <option value="USD">USD</option>
+                          <option value="CAD">CAD</option>
+                      </select>
+                      <br /><br />
+                      First Name:<br /> <input type="text" />
+                      <br /><br />
+                      Last Name: <br /><input type="text" />
+                      <br /><br />
+                      SSN: <br /><input type="text" placeholder="xxx-xx-xxxx" />
+                      <br /><br /><br />
+                      Mortgage Title:<br />
+                      <input type="text" />
+                      <br /><br />
+                      Description:<br />
+                      <br /><br />
+                      <textarea rows="6" cols="50"> </textarea>
+                      <br /><br />
+                      <button type="submit" class="btn btn-warning" role="button" onclick="">Submit</button>
+                  </div>
+
+                  <div id="service" style="display:none">
+                      <h1>Customer Service Center</h1>
+                      <br /><br />
+                      <h3>New Case</h3>
+                      <br /><br />
+
+                      Case ID Number:<br />
+                      <input type="text" />
+                      <br /><br />
+                      Description:<br />
+                      <br /><br />
+                      <textarea rows="6" cols="50"> </textarea>
+                      <br /><br />
+                      <h3>Active Cases</h3>
+                      <br />
+                      <div class="jumbotron" id="bottomTable">
+                          <table class="table table-hover">
+                              <thead>
+                                  <tr>
+                                      <th>Case ID</th>
+                                      <th>Description</th>
+                                  </tr>
+                              </thead>
+                              <tbody>
+                                  <tr>
+                                      <td>123456789</td>
+                                      <td>Example Complaint. blah blah blah blah <button>More Info</button></td>
+
+                                  </tr>
+
+                              </tbody>
+                          </table>
+                          </div>
+                      </div>
+
+                  </div>
+
+              </div>
+              
+
+
+
+
+
+
+</body>
+</html>

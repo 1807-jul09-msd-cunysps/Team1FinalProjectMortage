@@ -1,0 +1,99 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width = device-width,initial-
+          scale = 1" />
+
+    <title>
+        Mortàge
+    </title>
+
+    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" />
+
+    <style>
+        #loginBox {
+            background-color: #465670;
+            color: white;
+            width: 50%;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        #user {
+            width: 75%;
+        }
+
+        #pass {
+            width: 75%;
+        }
+        #home{
+            height:800px;
+        }
+    </style>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
+    <script>
+
+        function start() {
+            
+        }
+
+        function loadHome() {
+            $(document).ready(function () {
+
+                $('#loginBox').hide(500);
+                setTimeout(window.location.replace("Home.html"),2000);
+
+            });
+        }
+
+        function validate() {
+
+            loadHome();
+
+        }
+
+
+    </script>
+
+</head>
+<body onload="start()">
+
+    <div class="container">
+
+        
+        <br /><br />
+
+              <div class="jumbotron" id="loginBox">
+                  <div class="form-group row">
+                      <label for="user" class="col-2 col-form-label">Username</label>
+                      <div class="col-10">
+                          <input class="form-control" type="text" value="" id="user">
+                      </div>
+                  </div>
+                  <div class="form-group row">
+                      <label for="pass" class="col-2 col-form-label">Password</label>
+                      <div class="col-10">
+                          <input class="form-control" type="password" value="" id="pass">
+                      </div>
+
+                      <br />
+                      <button type="submit" class="btn btn-warning" role="button" onclick="validate()">Login</button>
+
+                  </div>
+
+
+                </div>
+
+        </div>        
+
+              
+
+
+
+</body>
+</html>
