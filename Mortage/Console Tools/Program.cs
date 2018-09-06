@@ -7,7 +7,8 @@ using Microsoft.Xrm.Tooling.Connector;
 using Microsoft.Xrm.Sdk.Messages;
 using Microsoft.Xrm.Sdk.Metadata;
 using Microsoft.Xrm.Sdk;
-using Utilities;
+using Microsoft.Xrm.Sdk.Query;
+using System.Globalization;
 
 namespace Console_Tools
 {
@@ -15,7 +16,7 @@ namespace Console_Tools
     {
         static void Main(string[] args)
         {
-            Utilities.Utilities.HashAThing("This is a test.");
+            //
         }
     }
 }
