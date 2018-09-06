@@ -1,17 +1,12 @@
-﻿using System;
+﻿using Microsoft.Xrm.Sdk;
+using Microsoft.Xrm.Sdk.Query;
+using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
+using System.ServiceModel;
 using System.Text;
 using System.Threading.Tasks;
-using Microsoft.Xrm.Sdk;
-using System.ServiceModel;
-using Microsoft.Xrm.Sdk.Messages;
-using Microsoft.Xrm.Sdk.Query;
-using Microsoft.Xrm.Tooling.Connector;
-using System.Runtime.Serialization;
-using Microsoft.Xrm.Sdk.Metadata;
-using Microsoft.Crm.Sdk.Messages;
-using Microsoft.Xrm.Sdk.Client;
 
 namespace Mortgage_Plugins
 {
@@ -47,25 +42,50 @@ namespace Mortgage_Plugins
                     // The mortgage has been created, now we will create the relevant payments
 
                     // @TODO: Actually get the tax, for now we're in Canada
-                    decimal taxRate = 0.05M;
+                    decimal taxRate = 5.0M;
 
-                    // @TODO: Actually get the APR
+                    QueryExpression aprQuery = new QueryExpression()
+                    {
+                        EntityName = "mortage_configurations",
+                        ColumnSet = new ColumnSet(new string[] { "mortage_value" })
+                    };
+
+                    aprQuery.Criteria.AddCondition("mortage_name", ConditionOperator.Equal, "APR");
+
+                    decimal baseApr = Decimal.Parse((string)service.RetrieveMultiple(aprQuery).Entities.First().Attributes["mortage_value"],
+                                    NumberStyles.AllowDecimalPoint | NumberStyles.AllowThousands);
+
+                    QueryExpression marginQuery = new QueryExpression()
+                    {
+                        EntityName = "mortage_configurations",
+                        ColumnSet = new ColumnSet(new string[] { "mortage_value" })
+                    };
+
+                    marginQuery.Criteria.AddCondition("mortage_name", ConditionOperator.Equal, "Margin");
+
+                    decimal margin = Decimal.Parse((string)service.RetrieveMultiple(marginQuery).Entities.First().Attributes["mortage_value"],
+                                     NumberStyles.AllowDecimalPoint | NumberStyles.AllowThousands);
+                    
+                    Entity contact = service.Retrieve("contact",(Guid)mortgage.Attributes["mortage_contactid"],new ColumnSet(
+                        "mortage_riskscore"
+                        ));
+
+                    // Set a default value for risk score in case something goes wrong
+                    // DO NOT DO THIS IN PRODUCTION IN REAL LIFE
+                    // @TODO: Update risk score instead of just accessing it
+                    double riskScore = 50;
+
+                    if((int)contact.Attributes["mortage_riskscore"] >= 0)
+                    {
+                        riskScore = (int)contact.Attributes["mortage_riskscore"];
+                    }
+
                     // Final APR for Mortgage = (Base APR + Margin) + Log (Risk Score)  + Sales Tax based on State;
-                    decimal apr = 0.1M + taxRate;
+                    decimal apr = ((baseApr + margin) + (decimal)Math.Log(riskScore) + taxRate)/100;
 
-                    // Get the generated number
-                    string mortgageNumber = mortgage.Attributes["mortage_name"].ToString();
-                    // Get the creating user
-                    EntityReference creatorId = (EntityReference)mortgage.Attributes["ownerid"];
-                    // Get total payment amount
-                    Money totalAmount = (Money)mortgage.Attributes["mortage_amount"];
+                    tracingService.Trace($"Got mortgage info. Term length is {mortgage.Attributes["mortage_termmonths"]}.");
 
-                    // Get the length of the mortgage
-                    int mortageTerm = (int)mortgage.Attributes["mortage_termmonths"];
-
-                    tracingService.Trace($"Got mortgage info. Term length is {mortageTerm}.");
-
-                    if(mortageTerm < 1)
+                    if ((int)mortgage.Attributes["mortage_termmonths"] < 1)
                     {
                         throw new InvalidPluginExecutionException("Mortgage term must be at least one month.");
                     }
@@ -76,68 +96,28 @@ namespace Mortgage_Plugins
                     Money monthlyPayment = new Money(
                         (decimal)
                             (
-                            (double)(totalAmount.Value * periodicInterest) /
+                            ((double)((((Money)mortgage.Attributes["mortage_amount"]).Value * periodicInterest)) /
                                 (
-                                    1 - Math.Pow((double)(1 + periodicInterest), -(double)mortageTerm)
+                                    1 - Math.Pow((double)(1 + periodicInterest), -Convert.ToDouble(mortgage.Attributes["mortage_termmonths"]))
                                 )
+                            )
                             )
                         );
 
                     tracingService.Trace($"Calculated payment. Payment is {monthlyPayment}");
 
-                    if (mortgage.Attributes.Contains("mortage_minpayment"))
-                    {
-                        mortgage.Attributes["mortage_minpayment"] = monthlyPayment;
-                    }
-                    else
-                    {
-                        mortgage.Attributes.Add("mortage_minpayment", monthlyPayment);
-                    }
-                    
-
-                    service.Update(mortgage);
+                    mortgage.Attributes.Add("mortage_minpayment", monthlyPayment);
 
                     tracingService.Trace("Updated mortgage with payment.");
-
-                    EntityReferenceCollection payments = new EntityReferenceCollection();
-
-                    for (int i = 0; i < mortageTerm; i++)
-                    {
-                        Entity payment = new Entity("mortage_payment");
-
-                        string paymentNumber = Convert.ToString(i + 1).PadLeft(3, '0');
-
-                        // Make sure there aren't too many payments
-                        if(paymentNumber.Length > 3)
-                        {
-                            throw new InvalidPluginExecutionException("Too many payments for this mortgage. Must not exceed 999.");
-                        }
-
-                        payment.Attributes.Add("mortage_name", $"Payment {paymentNumber} - {mortgageNumber}");
-
-                        payment.Attributes.Add("mortage_amountdue", monthlyPayment);
-                        payment.Attributes.Add("mortage_amountpaid", 0.0M);
-                        payment.Attributes.Add("ownerid", creatorId);
-
-                        // Create the payment but maintain a reference to it
-                        payments.Add(new EntityReference("mortage_payment", service.Create(payment)));
-
-                        tracingService.Trace($"Created payment {i + 1}.");
-                    }
-
-                    // Associate all the payments with the mortgage
-                    Relationship mortgageRelationship = new Relationship("mortage_mortgage_payment");
-                    service.Associate("mortage_mortgage", context.PrimaryEntityId, mortgageRelationship, payments);
                 }
-
                 catch (FaultException<OrganizationServiceFault> ex)
                 {
-                    throw new InvalidPluginExecutionException("An error occurred in Mortgage On Create Plugin.", ex);
+                    throw new InvalidPluginExecutionException("An error occurred in Mortage On Create Plugin.", ex);
                 }
 
                 catch (Exception ex)
                 {
-                    tracingService.Trace("Mortage On Create: {0}", ex.ToString());
+                    tracingService.Trace("Mortgage Creation: {0}", ex.ToString());
                     throw;
                 }
             }
