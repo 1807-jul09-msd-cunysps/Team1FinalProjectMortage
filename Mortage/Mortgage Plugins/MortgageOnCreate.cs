@@ -7,6 +7,7 @@ using System.Linq;
 using System.ServiceModel;
 using System.Text;
 using System.Threading.Tasks;
+using Utilities;
 
 namespace Mortgage_Plugins
 {
@@ -52,8 +53,22 @@ namespace Mortgage_Plugins
 
                     aprQuery.Criteria.AddCondition("mortage_name", ConditionOperator.Equal, "APR");
 
-                    decimal baseApr = Decimal.Parse((string)service.RetrieveMultiple(aprQuery).Entities.First().Attributes["mortage_value"],
-                                    NumberStyles.AllowDecimalPoint | NumberStyles.AllowThousands);
+                    string aprConfig = (string)service.RetrieveMultiple(aprQuery).Entities.First().Attributes["mortage_value"];
+
+                    decimal baseApr;
+
+                    // We default the APR if the parsing fails
+                    // DO NOT DO THIS IN PRODUCTION!!!!!
+                    if(!Decimal.TryParse(aprConfig, NumberStyles.AllowDecimalPoint | NumberStyles.AllowThousands, new CultureInfo("en-us"), out baseApr ))
+                    {
+                        baseApr = .3M;
+                    }
+
+                    // In case Bunmi made it a decimal value instead of a whole percentage
+                    if(baseApr < 1)
+                    {
+                        baseApr = baseApr * 100;
+                    }
 
                     QueryExpression marginQuery = new QueryExpression()
                     {
@@ -66,18 +81,19 @@ namespace Mortgage_Plugins
                     decimal margin = Decimal.Parse((string)service.RetrieveMultiple(marginQuery).Entities.First().Attributes["mortage_value"],
                                      NumberStyles.AllowDecimalPoint | NumberStyles.AllowThousands);
                     
-                    Entity contact = service.Retrieve("contact",(Guid)mortgage.Attributes["mortage_contactid"],new ColumnSet(
+                    Entity contact = service.Retrieve("contact",((EntityReference)mortgage.Attributes["mortage_contactid"]).Id,new ColumnSet(
                         "mortage_riskscore"
                         ));
 
-                    // Set a default value for risk score in case something goes wrong
-                    // DO NOT DO THIS IN PRODUCTION IN REAL LIFE
-                    // @TODO: Update risk score instead of just accessing it
-                    double riskScore = 50;
+                    int riskScore = Utilities.Utilities.GetAndUpdateRiskScore(ref contact);
 
-                    if((int)contact.Attributes["mortage_riskscore"] >= 0)
+                    if (contact.Attributes.Contains("mortage_riskscore"))
                     {
-                        riskScore = (int)contact.Attributes["mortage_riskscore"];
+                        contact.Attributes["mortage_riskscore"] = riskScore;
+                    }
+                    else
+                    {
+                        contact.Attributes.Add("mortage_riskscore", riskScore);
                     }
 
                     // Final APR for Mortgage = (Base APR + Margin) + Log (Risk Score)  + Sales Tax based on State;
