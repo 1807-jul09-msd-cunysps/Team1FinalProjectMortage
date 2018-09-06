@@ -42,8 +42,47 @@ namespace Mortgage_Plugins
                 {
                     // The mortgage has been created, now we will create the relevant payments
 
+                    // We get the contact first so we know their state for tax purposes
+                    Entity contact = service.Retrieve("contact", ((EntityReference)mortgage.Attributes["mortage_contactid"]).Id, new ColumnSet(
+                        "mortage_riskscore",
+                        "address1_country",
+                        "address1_stateorprovince"
+                        ));
+
                     // @TODO: Actually get the tax, for now we're in Canada
-                    decimal taxRate = 5.0M;
+                    decimal taxRate;
+                    QueryExpression taxQuery = new QueryExpression()
+                    {
+                        EntityName = "mortage_taxrate",
+                        ColumnSet = new ColumnSet
+                            (
+                                "mortage_rate"
+                            )
+                    };
+
+                    // If mortgage in Canada, use Canadian tax, otherwise use State tax
+                    // All of this pulls from the Tax Rate entity in Dynamics
+                    if((string)mortgage.Attributes["mortage_region"] == "Canada")
+                    {
+                        taxQuery.Criteria.AddCondition("mortage_name", ConditionOperator.Equal, "Canada");
+                    }
+                    else
+                    {
+                        taxQuery.Criteria.AddCondition("mortage_name", ConditionOperator.Equal,
+                            (string)contact.Attributes["address1_stateorprovince"]);
+                    }
+
+                    // Check if we got anything back, and if we did, use it
+                    if(service.RetrieveMultiple(taxQuery).Entities.Count > 0)
+                    {
+                        taxRate = (decimal)service.RetrieveMultiple(taxQuery).Entities.First().Attributes["mortage_rate"];
+                    }
+                    // Default to 5% if the lookup fails
+                    // Do not do this in production!!!!
+                    else
+                    {
+                        taxRate = 0.05M;
+                    }
 
                     QueryExpression aprQuery = new QueryExpression()
                     {
@@ -80,10 +119,6 @@ namespace Mortgage_Plugins
 
                     decimal margin = Decimal.Parse((string)service.RetrieveMultiple(marginQuery).Entities.First().Attributes["mortage_value"],
                                      NumberStyles.AllowDecimalPoint | NumberStyles.AllowThousands);
-                    
-                    Entity contact = service.Retrieve("contact",((EntityReference)mortgage.Attributes["mortage_contactid"]).Id,new ColumnSet(
-                        "mortage_riskscore"
-                        ));
 
                     int riskScore = Utilities.Utilities.GetAndUpdateRiskScore(ref contact);
 
