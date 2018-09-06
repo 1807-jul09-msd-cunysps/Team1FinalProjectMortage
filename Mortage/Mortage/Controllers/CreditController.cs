@@ -26,15 +26,22 @@ namespace Mortage.Controllers
                 //Convert ssn to an integer
                 int ssnNum = 0;
 
-                foreach (var bytes in Encoding.ASCII.GetBytes(ssn))
+                if(ssn != null)
                 {
-                    ssnNum += bytes;
+                    foreach (var bytes in Encoding.ASCII.GetBytes(ssn))
+                    {
+                        ssnNum += bytes;
+                    }
+
+                    Random ranNum = new Random(ssnNum);
+                    int riskRan = ranNum.Next(1, 101);
+                    return Ok(riskRan);
                 }
-
-                Random ranNum = new Random(ssnNum);
-                int riskRan = ranNum.Next(1, 101);
-                return Ok(riskRan);
-
+                else
+                {
+                    Random random = new Random();
+                    return Ok(random.Next(1, 101));
+                }              
             }
             catch (Exception ex){
                 return BadRequest(ex.Message);

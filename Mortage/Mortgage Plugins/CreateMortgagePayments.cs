@@ -42,9 +42,10 @@ namespace Mortgage_Plugins
                 (
                     "mortage_name",
                     "mortage_termmonths",
-                    "mortage_MinPayment",
+                    "mortage_minpayment",
                     "ownerid"
                 ));
+
                 EntityReferenceCollection payments = new EntityReferenceCollection();
 
                 for (int i = 0; i < (int)mortgage.Attributes["mortage_termmonths"]; i++)
@@ -56,12 +57,12 @@ namespace Mortgage_Plugins
                     // Make sure there aren't too many payments
                     if (paymentNumber.Length > 3)
                     {
-                        throw new InvalidPluginExecutionException("Too many payments for this mortgage. Must not exceed 999.");
+                        throw new FaultException("Too many payments for this mortgage. Must not exceed 999.");
                     }
 
                     payment.Attributes.Add("mortage_name", $"Payment {paymentNumber} - {mortgage.Attributes["mortage_name"]}");
 
-                    payment.Attributes.Add("mortage_amountdue", mortgage.Attributes["mortage_MinPayment"]);
+                    payment.Attributes.Add("mortage_amountdue", mortgage.Attributes["mortage_minpayment"]);
                     payment.Attributes.Add("mortage_amountpaid", 0.0M);
                     payment.Attributes.Add("ownerid", mortgage.Attributes["ownerid"]);
 
@@ -78,7 +79,7 @@ namespace Mortgage_Plugins
 
             catch (FaultException<OrganizationServiceFault> ex)
             {
-                throw new InvalidPluginExecutionException("An error occurred in Payment Creation Workflow.", ex);
+                throw new InvalidPluginExecutionException($"An error occurred in Payment Creation Workflow.{ex.StackTrace}{ex.Message}", ex);
             }
 
             catch (Exception ex)
