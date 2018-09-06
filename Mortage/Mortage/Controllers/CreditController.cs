@@ -14,9 +14,14 @@ namespace Mortage.Controllers
     [EnableCors ("*", "*", "*")]
     public class CreditController : ApiController
     {
-        CreditCheck num = new CreditCheck();
         [HttpGet]
-        public IHttpActionResult Get(string ssn) {
+        public IHttpActionResult Get()
+        {
+            return BadRequest("Please send customer SSN.");
+        }
+
+        [HttpPost]
+        public IHttpActionResult Post([FromBody]string ssn) {
             try {
                 //Convert ssn to an integer
                 int ssnNum = 0;
@@ -28,8 +33,7 @@ namespace Mortage.Controllers
 
                 Random ranNum = new Random(ssnNum);
                 int riskRan = ranNum.Next(1, 101);
-                num.riskScore = riskRan;
-                return Ok(num);
+                return Ok(riskRan);
 
             }
             catch (Exception ex){
