@@ -47,14 +47,14 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.Crm.Sdk.Proxy">
-      <HintPath>..\..\..\Dynamics 365 Custom Solution\packages\Microsoft.CrmSdk.XrmTooling.PluginRegistrationTool.9.0.2.4\tools\Microsoft.Crm.Sdk.Proxy.dll</HintPath>
+      <HintPath>..\packages\Microsoft.CrmSdk.CoreTools.9.0.2.4\content\bin\coretools\Microsoft.Crm.Sdk.Proxy.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.Xrm.Sdk">
-      <HintPath>..\..\..\Dynamics 365 Custom Solution\packages\Microsoft.CrmSdk.XrmTooling.PluginRegistrationTool.9.0.2.4\tools\Microsoft.Xrm.Sdk.dll</HintPath>
+      <HintPath>..\Console Tools\bin\Debug\Microsoft.Xrm.Sdk.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Xrm.Tooling.Connector">
-      <HintPath>..\..\..\Dynamics 365 Custom Solution\packages\Microsoft.CrmSdk.XrmTooling.PluginRegistrationTool.9.0.2.4\tools\Microsoft.Xrm.Tooling.Connector.dll</HintPath>
+      <HintPath>..\Mortgage Plugins\bin\coretools\Microsoft.Xrm.Tooling.Connector.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -199,7 +199,6 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\SampleDirection.cs" />
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
-    <Compile Include="Controllers\ApplicationController.cs" />
     <Compile Include="Controllers\AprController.cs" />
     <Compile Include="Controllers\CreditController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -259,7 +258,6 @@
     <Content Include="Scripts\jquery-3.3.1.slim.min.js" />
     <Content Include="Scripts\main.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
-    <None Include="Views\Home\Index_new.cshtml" />
     <None Include="Views\Home\Login.cshtml" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
