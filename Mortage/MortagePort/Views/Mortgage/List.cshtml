@@ -1,0 +1,78 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row" id="mortgage">
+    <div class="col-12">
+        <div class="jumbotron" id="info">
+            <h2> Total Balance: $0.00 <br /></h2>
+            <h3> Number of outstanding loans: 0 <br /></h3>
+        </div>
+    </div>
+</div>
+
+<div class="row" id="homecontent">
+    <div class="col-6" id="leftTable">
+        <div class="jumbotron">
+            <h2>Mortgage Applications</h2>
+            <div id="lTable">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>Mortgage Application Name</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>example house</td>
+                            <td>declined <button onclick="reason();">Reason</button></td>
+                        </tr>
+
+                    </tbody>
+                </table>
+            </div>
+            <div id="reason" style="display:none">
+                <button id="cancelPayment" onclick="cancelReason()" type="button" class="close" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <br /><br />
+                Mortgage loan declined due to insufficient credit score.
+            </div>
+        </div>
+    </div>
+    <div class="col-6" id="rightTable">
+        <div class="jumbotron" >
+            <h2>Active Mortgages</h2>
+            <div id="rTable">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>Mortgage Name</th>
+                            <th>Mortgage Balance</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>example house</td>
+                            <td>$120.00 <button onclick="payment()">Make A payment</button></td>
+
+                        </tr>
+
+                    </tbody>
+                </table>
+            </div>
+            <div id="makePayment" style="display:none">
+                <button id="cancelPayment" onclick="cancelPayment()" type="button" class="close" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <br /><br />
+                Payment Amount:<br /><input type="text" placeholder="$0.00" />
+                <br /><br />
+                <button type="submit" class="btn btn-warning" role="button" onclick="">Submit</button>
+
+            </div>
+        </div>
+    </div>
+</div>
+

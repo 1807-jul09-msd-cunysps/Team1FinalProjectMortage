@@ -1,0 +1,49 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+<body>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                @Html.ActionLink("Mortàge", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li>@Html.ActionLink("Home", "Index", "Home", new { area = "" }, null)</li>
+                    <li>@Html.ActionLink("My Mortgages", "List", "Mortgage", new { area = "" }, null)</li>
+                    <li>@Html.ActionLink("Apply", "Apply", "Mortgage", new { area = "" }, null)</li>
+                    <li>@Html.ActionLink("Customer Service", "Case", "Service", new { area = "" }, null)</li>
+                    <li>@Html.ActionLink("Help", "Docs", "Service", new { area = "" }, null)</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+        <footer class="page-footer font-small blue pt-4 text-center" id="foot">
+            <h5 class="text-small">All content on this site is the exclusive property of Mortàge LLC</h5>
+            &copy; 2018 Copyright:
+            <a href="https://revature.com/"> https://mortàge.com</a>
+        </footer>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @*<link href="~/Content/bootstrap.min.css" />
+    <script src="~/Scripts/bootstrap.min.js"></script>*@
+    <script src="~/Scripts/main.js"></script>
+    @RenderSection("scripts", required: false)
+</body>
+</html>
