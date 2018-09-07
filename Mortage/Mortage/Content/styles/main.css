@@ -1,0 +1,50 @@
+﻿#top {
+    height: 1200px;
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#info {
+    background-color: white;
+}
+
+#left {
+    float: left;
+}
+
+#leftTable {
+    background-color: white;
+}
+
+#right {
+    float: right;
+    background-color: white;
+}
+
+#rightTable {
+    background-color: white;
+}
+
+#bottomTable {
+    background-color: white;
+}
+
+#image {
+    height: 160px;
+    width: 100%;
+}
+
+#foot {
+    position: absolute;
+    width: 100%;
+    margin-top: 40px;
+}
+
+#titlError, #descError, #errorSSN, #errorMT, #mortDescrError, .addressError {
+    color: orangered;
+}
+
+#cancelPayment {
+    float: right;
+}

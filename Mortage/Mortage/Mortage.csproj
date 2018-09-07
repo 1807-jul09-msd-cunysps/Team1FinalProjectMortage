@@ -202,6 +202,8 @@
     <Compile Include="Controllers\AprController.cs" />
     <Compile Include="Controllers\CreditController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\MortgageController.cs" />
+    <Compile Include="Controllers\ServiceController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Models\Apr.cs" />
     <Compile Include="Models\CreditCheck.cs" />
@@ -216,6 +218,9 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\Images\Background.jpg" />
+    <Content Include="Content\Images\MortageLogo.png" />
+    <Content Include="Content\styles\main.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -250,7 +255,10 @@
     <Content Include="Scripts\jquery-3.3.1.min.js" />
     <Content Include="Scripts\jquery-3.3.1.slim.js" />
     <Content Include="Scripts\jquery-3.3.1.slim.min.js" />
+    <Content Include="Scripts\main.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
+    <None Include="Views\Home\Index_new.cshtml" />
+    <None Include="Views\Home\Login.cshtml" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -265,6 +273,10 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Service\Case.cshtml" />
+    <Content Include="Views\Service\Docs.cshtml" />
+    <Content Include="Views\Mortgage\List.cshtml" />
+    <Content Include="Views\Mortgage\Apply.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

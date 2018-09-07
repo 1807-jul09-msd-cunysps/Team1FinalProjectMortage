@@ -1,0 +1,60 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row" id="service">
+    <div class="col-12">
+        <form id="cases">
+            <h1>Customer Service Center</h1>
+            <br /><br />
+            <h3>New Case</h3>
+            <br /><br />
+
+            Mortgage ID Number:<br />
+            <input type="text" id="titl" />
+            <div id="titlError" style="display:none">This field cannot be empty</div>
+            <br /><br />
+
+            Description:<br />
+            <br /><br />
+            <textarea rows="6" cols="50" id="desc"> </textarea>
+            <div id="descError" style="display:none">This field cannot be empty</div>
+            <br /><br />
+            <button type="submit" class="btn btn-warning" role="button" onclick="caseValidate()">Submit</button>
+        </form>
+        <br /><br />
+        <h3>Active Cases</h3>
+        <br />
+        <div class="jumbotron" id="bottomTable">
+            <div id="caseTable">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>Case ID</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>123456789</td>
+                            <td>Example Complaint. blah blah blah blah <button onclick="openCase()">More Info</button></td>
+
+                        </tr>
+
+                    </tbody>
+                </table>
+            </div>
+            <div id="case" style="display:none">
+                <button id="cancelPayment" onclick="closeCase()" type="button" class="close" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <br /><br />
+                Details of the case here.
+                <br /><br />
+                blah blah blah blah<br />
+                blah blah blah...
+            </div>
+
+        </div>
+    </div>
+</div>
