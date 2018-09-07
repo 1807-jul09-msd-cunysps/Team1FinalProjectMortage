@@ -199,12 +199,14 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\SampleDirection.cs" />
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
+    <Compile Include="Controllers\ApplicationController.cs" />
     <Compile Include="Controllers\AprController.cs" />
     <Compile Include="Controllers\CreditController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MortgageController.cs" />
     <Compile Include="Controllers\ServiceController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
+    <Compile Include="Models\Application.cs" />
     <Compile Include="Models\Apr.cs" />
     <Compile Include="Models\CreditCheck.cs" />
     <Compile Include="Global.asax.cs">
