@@ -21,6 +21,21 @@
 
     <script>
 
+        var users =
+            [
+                {
+                    "username": "rchin@email.com",
+                    "password": "password",
+                    "guid": "295F11FC-15B5-E811-A960-000D3A3AB886",
+                    "fullname": "Russel Chin"
+                },
+                {
+                    "username": "csmith@email.com",
+                    "password": "password",
+                    "guid": "3DAB67CF-18B5-E811-A95C-000D3A3AB637",
+                    "fullname": "Cathy Smith"
+                }
+            ]
 
         function loadHome() {
             $(document).ready(function () {
@@ -32,53 +47,46 @@
         }
 
         function validate() {
-            var user = document.getElementById("user").value;
-            var pass = document.getElementById("pass").value;
+            var username = document.getElementById("user").value;
+            var password = document.getElementById("pass").value;
             var logi = false;
             var usrb = false;
             var pasb = false;
 
-            if (user === "") {
-                usrb = false;
-                $(document).ready(function () {
-                    $('#userError').show(500);
-                });
-
+            for (var user in users) {
+                if (username == user.username) {
+                    $(document).ready(function () {
+                        $('#userError').hide(500);
+                    });
+                    if (pasword == user.password) {
+                        $(document).ready(function () {
+                            $('#passError').hide(500);
+                        });
+                        sessionStorage.setItem('userName', user.username);
+                        sessionStorage.setItem('fullname', user.fullname);
+                        usrb = true;
+                        loadHome();
+                    }
+                    else {
+                        $(document).ready(function () {
+                            $('#passError').show(500);
+                        });
+                    }
+                }
+                else {
+                    $(document).ready(function () {
+                        $('#userError').show(500);
+                    });
+                }
             }
-            else {
-                usrb = true;
-                $(document).ready(function () {
-                    $('#userError').hide(500);
-                });
-            }
 
-            if (pass === "") {
-                pasb = false;
-                $(document).ready(function () {
-                    $('#passError').show(500);
-                });
+            $(document).ready(function () {
+                $('#userError').show(500);
+            });
 
-            }
-            else {
-                pasb = true;
-                $(document).ready(function () {
-                    $('#passError').hide(500);
-                });
-            }
-
-
-            //Some logic here will try to connect to Dynamics
-            //and return false if it can't
-            logi = true;
-
-
-
-            if (logi && usrb && pasb) {
-
-                sessionStorage.setItem('userName', document.getElementById("user").value);
-
-                loadHome();
-            }
+            $(document).ready(function () {
+                $('#passError').show(500);
+            });
         }
 
 
