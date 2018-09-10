@@ -66,6 +66,7 @@
   <ItemGroup>
     <Compile Include="CreateMortgagePayments.cs" />
     <Compile Include="MortgageOnCreate.cs" />
+    <Compile Include="PaymentOnUpdate.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utilities.cs" />
   </ItemGroup>
