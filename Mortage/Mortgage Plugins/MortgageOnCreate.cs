@@ -40,8 +40,6 @@ namespace Mortgage_Plugins
 
                 try
                 {
-                    // The mortgage has been created, now we will create the relevant payments
-
                     // We get the contact first so we know their state for tax purposes
                     Entity contact = service.Retrieve("contact", ((EntityReference)mortgage.Attributes["mortage_contactid"]).Id, new ColumnSet(
                         "mortage_riskscore",
@@ -49,8 +47,8 @@ namespace Mortgage_Plugins
                         "address1_stateorprovince"
                         ));
 
-                    // @TODO: Actually get the tax, for now we're in Canada
                     decimal taxRate;
+
                     QueryExpression taxQuery = new QueryExpression()
                     {
                         EntityName = "mortage_taxrate",
@@ -60,17 +58,26 @@ namespace Mortgage_Plugins
                             )
                     };
 
+                    tracingService.Trace("Created tax query");
+
                     // If mortgage in Canada, use Canadian tax, otherwise use State tax
                     // All of this pulls from the Tax Rate entity in Dynamics
-                    if((string)mortgage.Attributes["mortage_region"] == "Canada")
+                    if(mortgage.Attributes.Contains("mortage_region") && ((OptionSetValue)mortgage.Attributes["mortage_region"]).Value == 282450001)
                     {
                         taxQuery.Criteria.AddCondition("mortage_name", ConditionOperator.Equal, "Canada");
                     }
-                    else
+                    else if (contact.Attributes.Contains("address1_stateorprovince"))
                     {
                         taxQuery.Criteria.AddCondition("mortage_name", ConditionOperator.Equal,
                             (string)contact.Attributes["address1_stateorprovince"]);
                     }
+                    else
+                    {
+                        // Pretend we're in New York if there is no state
+                        taxQuery.Criteria.AddCondition("mortage_name", ConditionOperator.Equal, "New York");
+                    }
+
+                    tracingService.Trace("Added criteria to query");
 
                     // Check if we got anything back, and if we did, use it
                     if(service.RetrieveMultiple(taxQuery).Entities.Count > 0)
@@ -84,6 +91,8 @@ namespace Mortgage_Plugins
                         taxRate = 0.05M;
                     }
 
+                    tracingService.Trace($"Got the tax rate {taxRate}");
+
                     QueryExpression aprQuery = new QueryExpression()
                     {
                         EntityName = "mortage_configurations",
@@ -93,6 +102,8 @@ namespace Mortgage_Plugins
                     aprQuery.Criteria.AddCondition("mortage_name", ConditionOperator.Equal, "APR");
 
                     string aprConfig = (string)service.RetrieveMultiple(aprQuery).Entities.First().Attributes["mortage_value"];
+
+                    tracingService.Trace($"Looked up configured APR as {aprConfig}");
 
                     decimal baseApr;
 
@@ -114,6 +125,8 @@ namespace Mortgage_Plugins
                         EntityName = "mortage_configurations",
                         ColumnSet = new ColumnSet(new string[] { "mortage_value" })
                     };
+
+                    tracingService.Trace("Created margin query");
 
                     marginQuery.Criteria.AddCondition("mortage_name", ConditionOperator.Equal, "Margin");
 
@@ -163,12 +176,12 @@ namespace Mortgage_Plugins
                 }
                 catch (FaultException<OrganizationServiceFault> ex)
                 {
-                    throw new InvalidPluginExecutionException("An error occurred in Mortage On Create Plugin.", ex);
+                    throw new InvalidPluginExecutionException($"An error occurred in Mortage On Create Plugin! {ex.Message}");
                 }
 
                 catch (Exception ex)
                 {
-                    tracingService.Trace("Mortgage Creation: {0}", ex.ToString());
+                    tracingService.Trace($"Mortgage Creation: {ex.ToString()}");
                     throw;
                 }
             }

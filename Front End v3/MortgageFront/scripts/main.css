@@ -1,0 +1,48 @@
+﻿#loginBox {
+    background-color: #465670;
+    color: white;
+    font-size: 2em;
+}
+
+    #loginBox input {
+        font-size: 102%;
+    }
+
+#user {
+    width: 75%;
+}
+
+#pass {
+    width: 75%;
+}
+
+#userError {
+    color: orangered;
+}
+
+#passError {
+    color: orangered;
+}
+
+#foot {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+}
+
+#logo {
+    margin-top: 20px;
+    float: left;
+    float: right;
+    margin-right: 180px;
+    width: 75%;
+}
+
+.center {
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.login-btn {
+    margin-bottom: 10px;
+}
