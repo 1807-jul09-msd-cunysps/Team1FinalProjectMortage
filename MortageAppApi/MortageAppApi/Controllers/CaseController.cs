@@ -22,16 +22,16 @@ namespace MortageAppApi.Controllers
         {
             try
             {
-                //Calling the organization
+                // Get the CRM connection string and connect to the CRM Organization
                 CrmServiceClient client = new CrmServiceClient("Url=https://revmortage.crm.dynamics.com; Username=isteiner@RevMortage.onmicrosoft.com; Password=9V5$m9xjm#*HDuHT; authtype=Office365");
                 IOrganizationService service = (IOrganizationService)
                 client.OrganizationWebProxyClient ?? (IOrganizationService)client.OrganizationServiceProxy;
 
 
                 Entity Case = new Entity("incident");
-                Case.Attributes.Add("mortage_mortagemortgageid", incident.mortgageid);
-                Case.Attributes.Add("mortage_customerid", new EntityReference("contact", incident.customer));
-                Case.Attributes.Add("mortage_description", incident.description);
+                Case.Attributes.Add("title", incident.mortgageid);
+                Case.Attributes.Add("customerid", new EntityReference("contact", new Guid(incident.customer)));
+                Case.Attributes.Add("description", incident.description);
                 service.Create(Case);
                 return Ok();
             }

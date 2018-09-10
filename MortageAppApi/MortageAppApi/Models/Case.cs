@@ -8,7 +8,7 @@ namespace MortageAppApi.Models
     public class Case
     {
         public string mortgageid { get; set; }
-        public Guid customer { get; set; }
+        public string customer { get; set; }
         public string description { get; set; }
     }
 }
