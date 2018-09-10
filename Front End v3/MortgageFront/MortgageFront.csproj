@@ -72,6 +72,7 @@
     <Content Include="Home.html" />
     <Content Include="Login.html" />
     <Content Include="MortageLogo.png" />
+    <Content Include="scripts\main.css" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -87,7 +88,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="scripts\" />
     <Folder Include="style\" />
   </ItemGroup>
   <PropertyGroup>
