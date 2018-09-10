@@ -76,7 +76,7 @@ namespace Mortgage_Plugins
                 Relationship mortgageRelationship = new Relationship("mortage_mortgage_payment");
                 service.Associate("mortage_mortgage", mortgage.Id, mortgageRelationship, payments);
             }
-
+            
             catch (FaultException<OrganizationServiceFault> ex)
             {
                 throw new InvalidPluginExecutionException($"An error occurred in Payment Creation Workflow.{ex.StackTrace}{ex.Message}", ex);

@@ -1,6 +1,8 @@
 ﻿using Microsoft.Xrm.Sdk;
+using Microsoft.Xrm.Sdk.Query;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -20,44 +22,53 @@ namespace Utilities
         // This actually doesn't work and sends a null body. Changed the api to pretend that didn't happen.
         public static int GetAndUpdateRiskScore(ref Entity contact)
         {
-            byte[] ssn;
-
-            if (contact.Attributes.Contains("mortage_ssn"))
+            try
             {
-                ssn = ASCIIEncoding.ASCII.GetBytes((string)contact.Attributes["mortage_ssn"]);
+                byte[] ssn;
+
+                if (contact.Attributes.Contains("mortage_ssn"))
+                {
+                    ssn = ASCIIEncoding.ASCII.GetBytes((string)contact.Attributes["mortage_ssn"]);
+                }
+                else
+                {
+                    // Generate an SSN and give to the API and the contact
+                    string randomSSN = RandomSSN();
+                    contact.Attributes.Add("mortage_ssn", randomSSN);
+                    ssn = ASCIIEncoding.ASCII.GetBytes(randomSSN);
+                }
+
+                HttpClient client = new HttpClient();
+
+                client.DefaultRequestHeaders
+                  .Accept
+                  .Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+                HttpRequestMessage httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, "http://mortage.azurewebsites.net/api/credit");
+
+                httpRequestMessage.Content = new StringContent((string)contact.Attributes["mortage_ssn"], Encoding.ASCII, "application/json"); ;
+
+                var response = client.SendAsync(httpRequestMessage).Result;
+
+                int riskScore = Convert.ToInt32(response.Content.ReadAsStringAsync().Result);
+
+                if (contact.Attributes.Contains("mortage_riskscore"))
+                {
+                    contact.Attributes["mortage_riskscore"] = riskScore;
+                }
+                else
+                {
+                    contact.Attributes.Add("mortage_riskscore", riskScore);
+                }
+
+                return riskScore;
             }
-            else
+            catch (Exception)
             {
-                // Generate an SSN and give to the API and the contact
-                string randomSSN = RandomSSN();
-                contact.Attributes.Add("mortage_ssn", randomSSN);
-                ssn = ASCIIEncoding.ASCII.GetBytes(randomSSN);
+                // If something breaks, generate it ourselves
+                Random random = new Random();
+                return random.Next(1, 101);
             }
-
-            HttpClient client = new HttpClient();
-
-            client.DefaultRequestHeaders
-              .Accept
-              .Add(new MediaTypeWithQualityHeaderValue("application/json"));
-           
-            HttpRequestMessage httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, "http://mortage.azurewebsites.net/api/credit");
-
-            httpRequestMessage.Content = new StringContent((string)contact.Attributes["mortage_ssn"], Encoding.ASCII, "application/json"); ;
-
-            var response = client.SendAsync(httpRequestMessage).Result;
-
-            int riskScore = Convert.ToInt32(response.Content.ReadAsStringAsync().Result);
-
-            if (contact.Attributes.Contains("mortage_riskscore"))
-            {
-                contact.Attributes["mortage_riskscore"] = riskScore;
-            }
-            else
-            {
-                contact.Attributes.Add("mortage_riskscore", riskScore);
-            }
-
-            return riskScore;
         }
 
         public static string HashAThing(string toHash)

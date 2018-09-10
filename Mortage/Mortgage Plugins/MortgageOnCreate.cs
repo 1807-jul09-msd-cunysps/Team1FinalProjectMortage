@@ -40,8 +40,6 @@ namespace Mortgage_Plugins
 
                 try
                 {
-                    // The mortgage has been created, now we will create the relevant payments
-
                     // We get the contact first so we know their state for tax purposes
                     Entity contact = service.Retrieve("contact", ((EntityReference)mortgage.Attributes["mortage_contactid"]).Id, new ColumnSet(
                         "mortage_riskscore",
@@ -178,12 +176,12 @@ namespace Mortgage_Plugins
                 }
                 catch (FaultException<OrganizationServiceFault> ex)
                 {
-                    throw new InvalidPluginExecutionException($"An error occurred in Mortage On Create Plugin. {ex.Message} {ex.StackTrace}", ex);
+                    throw new InvalidPluginExecutionException($"An error occurred in Mortage On Create Plugin! {ex.Message}");
                 }
 
                 catch (Exception ex)
                 {
-                    tracingService.Trace($"Mortgage Creation: {ex.Message} {ex.StackTrace}");
+                    tracingService.Trace($"Mortgage Creation: {ex.ToString()}");
                     throw;
                 }
             }
