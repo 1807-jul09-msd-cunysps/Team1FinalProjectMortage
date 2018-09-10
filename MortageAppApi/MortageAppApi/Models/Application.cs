@@ -5,13 +5,14 @@ using System.Web;
 
 namespace MortageAppApi.Models
 {
+    //[Serializable]
     public class Application
     {
         public string ssn { get; set; }
         public string currency { get; set; }
         public string mortgageTitle { get; set; }
         public string description { get; set; }
-        public decimal amount { get; set; }
+        public string amount { get; set; }
         public string firstName { get; set; }
         public string lastName { get; set; }
         public string address1 { get; set; }

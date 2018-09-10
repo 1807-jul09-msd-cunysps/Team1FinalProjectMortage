@@ -11,7 +11,7 @@ namespace MortageAppApi.Controllers
     public class ApplicationController : ApiController
     {
         [HttpPost]
-        public IHttpActionResult Post([FromBody]Application app) {
+        public IHttpActionResult Post(Application app) {
             try
             {
                 // Get the CRM connection string and connect to the CRM Organization
@@ -20,7 +20,7 @@ namespace MortageAppApi.Controllers
                 client.OrganizationWebProxyClient ?? (IOrganizationService)client.OrganizationServiceProxy;
 
                 Entity contact = new Entity("contact");
-                contact.Attributes.Add("firstname", app.firstName);
+                contact.Attributes.Add("firstname",app.firstName);
                 contact.Attributes.Add("lastname", app.lastName);
                 contact.Attributes.Add("mortage_ssn", app.ssn);
                 contact.Attributes.Add("address1_line1", app.address1);
@@ -35,7 +35,7 @@ namespace MortageAppApi.Controllers
 
                 Entity mortgage = new Entity("mortage_mortgage");
                 mortgage.Attributes.Add("mortage_contactid", new EntityReference("contact", myContact));
-                mortgage.Attributes.Add("mortage_amount", new Money(app.amount));
+                mortgage.Attributes.Add("mortage_amount", new Money(Convert.ToDecimal(app.amount)));
                 mortgage.Attributes.Add("mortage_termmonths", 144);
                 mortgage.Attributes.Add("mortage_region", new OptionSetValue(282450000));
                 service.Create(mortgage);
