@@ -40,7 +40,7 @@ namespace MortageAppApi.Controllers
                 mortgage.Attributes.Add("mortage_region", new OptionSetValue(282450000));
                 service.Create(mortgage);
 
-                return Ok(contact);
+                return Ok();
             }
             catch (Exception ex)
             {
