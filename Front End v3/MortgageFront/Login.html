@@ -11,50 +11,13 @@
     </title>
 
     <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" />
-
-    <style>
-        #loginBox {
-            background-color: #465670;
-            color: white;
-            width: 30%;
-            margin-left: 300px;
-            margin-right: auto;
-            margin-top:240px;
-            position: absolute;
-        }
-
-        #user {
-            width: 75%;
-        }
-
-        #pass {
-            width: 75%;
-        }
-
-        #userError{
-            color:orangered;
-        }
-        #passError{
-            color:orangered;
-        }
-        #foot {
-            position: absolute;
-            bottom: 0;
-            width: 100%;
-        }
-        #logo{
-            margin-top:20px;
-            float:left;
-            float:right;
-            margin-right:180px;
-            width: 75%;
-        }
-
-
-    </style>
+    <link rel="stylesheet" type="text/css" href="style/main.css" />
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <!--
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+        -->
 
     <script>
 
@@ -62,8 +25,8 @@
         function loadHome() {
             $(document).ready(function () {
 
-                
-                setTimeout(window.location.replace("Home.html"),10000);
+
+                setTimeout(window.location.replace("Home.html"), 10000);
 
             });
         }
@@ -94,7 +57,7 @@
                 $(document).ready(function () {
                     $('#passError').show(500);
                 });
-                
+
             }
             else {
                 pasb = true;
@@ -103,16 +66,16 @@
                 });
             }
 
-            
-                //Some logic here will try to connect to Dynamics
-                //and return false if it can't
-                logi = true;
-            
+
+            //Some logic here will try to connect to Dynamics
+            //and return false if it can't
+            logi = true;
+
 
 
             if (logi && usrb && pasb) {
-			
-				sessionStorage.setItem('userName', document.getElementById("user").value);
+
+                sessionStorage.setItem('userName', document.getElementById("user").value);
 
                 loadHome();
             }
@@ -124,40 +87,37 @@
 </head>
 <body onload="start()">
 
-    <div class="container">
-
-
-            <img id="logo" src="MortageLogo.png" class="img-fluid" alt="Responsive image">
-
-
-        
-
-        <div class="jumbotron" id="loginBox">
-            <div class="form-group row">
-                <label for="user" class="col-2 col-form-label">Username</label>
-                <div class="col-10">
-                    <input class="form-control" type="text" value="" id="user" required>
-                    <br /><div id="userError" style="display:none">Please enter a Username</div>
-                </div>
-            </div>
-            <div class="form-group row">
-                <label for="pass" class="col-2 col-form-label">Password</label>
-                <div class="col-10">
-                    <input class="form-control" type="password" value="" id="pass" required>
-                    <br /><div id="passError" style="display:none">Please enter a Password</div>
-                </div>
-
-                <br />
-                <button type="submit" class="btn btn-warning" role="button" onclick="validate()">Login</button>
-
-            </div>
-
-
+    <div class="container-fluid">
+        <div class="row text-center">
+            <img id="logo" src="MortageLogo.png" class="rounded mx-auto d-block" title="Mortage Logo">
         </div>
-
-
-
-
+        <div class="row">
+            <div class="col-sm-6 offset-sm-3" id="loginBox">
+                <div class="form-group row text-center">
+                    <div class="col-12">
+                        <div class="form-group">
+                            <label for="user">Username</label>
+                            <input type="text" class="form-control center" id="user" placeholder="your@email.com">
+                            <div id="userError" style="display:none">Please enter a Username</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group row text-center">
+                    <div class="col-12">
+                        <div class="form-group">
+                            <label for="pass">Password</label>
+                            <input type="password" class="form-control center" id="pass">
+                            <div id="passError" style="display:none">Please enter a Password</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-4 offset-sm-4">
+                        <button type="submit" class="btn btn-warning btn-block login-btn" role="button" onclick="validate()">Login</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
 
