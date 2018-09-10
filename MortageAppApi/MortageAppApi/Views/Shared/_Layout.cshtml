@@ -71,7 +71,7 @@
             width: 50%;
         }
 
-        #titlError, #descError, #errorSSN, #errorMT, #mortDescrError, .addressError {
+        #titlError, #descError, #errorSSN, #errorMT, .addressError {
             color: orangered;
         }
 
@@ -282,25 +282,6 @@
         //Mortgage Apply form validation
 
 
-        function mortDescr() {
-            var mortDescr = document.getElementById("mortDescr").value;
-
-            if (mortDescr === "") {
-                $(document).ready(function () {
-                    $('mortDescrError').slideDown(500);
-                });
-                return false;
-            }
-            else {
-                $(document).ready(function () {
-                    $('mortDescrError').slideUp(500);
-                });
-                return true;
-            }
-
-        }
-
-
 
         function checkAmount() {
             var amount = document.getElementById("applicationAmount").value;
@@ -374,24 +355,20 @@
 
 
         function applyValidate() {
-            mortDescr();
             checkAmount();
             checkSSN();
             checkTitle();
             checkAddress();
-            if (mortDescr() & checkSSN() & checkTitle() & checkAddress()) {
+            if (checkSSN() & checkTitle() & checkAddress()) {
                 {
 
                     //checks if all conditions are evaluating true
-                    //alert(String(mortDescr()) + " " + String(checkSSN()) + " " + String(checkTitle()) + " " + String(checkAddress()));
-
-
                     var Application = {
                         "MortgageApplication": [
 
                             {
                                 "ssn": document.getElementById("SSN").value, "currency": document.getElementById("currency").value,
-                                "mortgageTitle": document.getElementById("mortgageTitle").value, "description": document.getElementById("mortDescr").value,
+                                "mortgageTitle": document.getElementById("mortgageTitle").value,
                                 "amount": document.getElementById("applicationAmount").value, "firstName": document.getElementById("first-name").value,
                                 "lastName": document.getElementById("last-name").value, "address1": document.getElementById("address-line1").value,
                                 "address2": document.getElementById("address-line2").value, "cityOrTown": document.getElementById("city").value,
@@ -407,7 +384,7 @@
 
                         type: 'POST',
 
-                        url: 'http://localhost:52721/api/application',
+                        url: 'http://mortage.azurewebsites.net/api/application',
 
                         data: JSON.stringify(Application),
 
