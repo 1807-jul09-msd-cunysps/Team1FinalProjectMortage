@@ -37,16 +37,25 @@ namespace MortageAppApi.Controllers
 </fetch>";
             //3DAB67CF - 18B5 - E811 - A95C - 000D3A3AB637
             EntityCollection collection = service.RetrieveMultiple(new FetchExpression(query));
-            Array test =  collection.Entities.ToArray();
-
-            /* Entity latestMortgage = collection.Entities[0];
-          Dashboard dash = new Dashboard();
+            int size = collection.Entities.Count();
+            List<Dashboard> dashes = new List<Dashboard>();
+            for (int i = 0; i < size; i++)
+            {
+                Entity latestMortgage = collection.Entities[i];
+                
+                    Dashboard dash = new Dashboard();
+                    dash.amount = (((Money)latestMortgage.Attributes["mortage_amount"]).Value).ToString();
+                    dash.name = latestMortgage.Attributes["mortage_name"].ToString();
+                    dashes.Add(dash);
+                
+            }
+          /*Dashboard dash = new Dashboard();
           dash.size = collection.Entities.Count().ToString();
           dash.amount = (((Money)latestMortgage.Attributes["mortage_amount"]).Value).ToString();
-          dash.name= latestMortgage.Attributes["mortage_name"].ToString();*/
+          dash.name= latestMortgage.Attributes["mortage_name"].ToString(); */
 
 
-            return Ok(test);
+            return Ok(dashes);
         }
     }
 }
