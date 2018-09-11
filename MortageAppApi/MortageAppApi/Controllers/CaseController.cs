@@ -40,5 +40,10 @@ namespace MortageAppApi.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [HttpGet]
+        public IHttpActionResult Get() {
+
+            return Ok();
+        }
     }
 }

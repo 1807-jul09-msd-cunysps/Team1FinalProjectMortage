@@ -228,6 +228,7 @@
     <Compile Include="Controllers\AprController.cs" />
     <Compile Include="Controllers\CaseController.cs" />
     <Compile Include="Controllers\CreditController.cs" />
+    <Compile Include="Controllers\DashboardController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\PayController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
@@ -238,6 +239,7 @@
     <Compile Include="Models\Apr.cs" />
     <Compile Include="Models\Case.cs" />
     <Compile Include="Models\CreditCheck.cs" />
+    <Compile Include="Models\Dashboard.cs" />
     <Compile Include="Models\Payment.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

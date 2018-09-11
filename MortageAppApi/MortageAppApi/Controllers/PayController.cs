@@ -35,7 +35,7 @@ namespace MortageAppApi.Controllers
                 EntityCollection collection =  service.RetrieveMultiple(new FetchExpression(query));
                 Entity latestPayment = collection.Entities[0];
                 latestPayment.Attributes.Add("mortage_amountpaid", new Money(Convert.ToDecimal(payment.payAmount)));
-               
+                
                 service.Update(latestPayment);
 
                 return Ok();
