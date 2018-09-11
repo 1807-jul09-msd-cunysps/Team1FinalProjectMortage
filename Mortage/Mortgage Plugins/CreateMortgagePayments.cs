@@ -48,6 +48,8 @@ namespace Mortgage_Plugins
 
                 EntityReferenceCollection payments = new EntityReferenceCollection();
 
+                DateTime currentDate = DateTime.Now;
+
                 for (int i = 0; i < (int)mortgage.Attributes["mortage_termmonths"]; i++)
                 {
                     Entity payment = new Entity("mortage_payment");
@@ -65,6 +67,7 @@ namespace Mortgage_Plugins
                     payment.Attributes.Add("mortage_amountdue", mortgage.Attributes["mortage_minpayment"]);
                     payment.Attributes.Add("mortage_amountpaid", 0.0M);
                     payment.Attributes.Add("ownerid", mortgage.Attributes["ownerid"]);
+                    payment.Attributes.Add("mortage_duedate", currentDate.AddMonths(i+1));
 
                     // Create the payment but maintain a reference to it
                     payments.Add(new EntityReference("mortage_payment", service.Create(payment)));

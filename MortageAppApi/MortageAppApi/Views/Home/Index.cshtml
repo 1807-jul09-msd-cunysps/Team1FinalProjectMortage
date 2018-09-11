@@ -1,24 +1,328 @@
-﻿<div class="jumbotron">
-    <h1>ASP.NET</h1>
-    <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS, and JavaScript.</p>
-    <p><a href="https://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
-</div>
-<div class="row">
-    <div class="col-md-4">
-        <h2>Getting started</h2>
-        <p>ASP.NET Web API is a framework that makes it easy to build HTTP services that reach
-        a broad range of clients, including browsers and mobile devices. ASP.NET Web API
-        is an ideal platform for building RESTful applications on the .NET Framework.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301870">Learn more &raquo;</a></p>
+﻿<div class="jumbotron" id="top">
+
+    <div id="home">
+
+        <div class="jumbotron" id="info">
+            <h2 id="welcome"> Welcome Back, John Doe</h2>
+            <h4 id="accountInfo">  Total Balance:$0.00<br />Number of Mortgages: 0<br />Active Cases: 0<br /></h4>
+        </div>
+        <div id="homecontent">
+
+            <div id="left"><h2>Current APR: 1234</h2><br />stuff<br />stuff<br />stuff<br /></div>
+            <div class="jumbotron" id="right">
+                <h2>Recent Mortgages</h2>
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>Mortgage Name</th>
+                            <th>Mortgage Balance</th>
+                            <th>Next Payement Due</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>example house</td>
+                            <td>$120.00</td>
+                            <td>11/11/11</td>
+                        </tr>
+                        <tr>
+                            <td>shows</td>
+                            <td>$120.00</td>
+                            <td>11/11/11</td>
+                        </tr>
+
+
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
     </div>
-    <div class="col-md-4">
-        <h2>Get more libraries</h2>
-        <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301871">Learn more &raquo;</a></p>
+
+    <div id="mortgage" style="display:none">
+        <div class="jumbotron" id="info">
+            <h2> Total Balance: $0.00 <br /></h2>
+            <h3> Number of outstanding loans: 0 <br /></h3>
+        </div>
+
+
+        <div id="homecontent">
+            <div class="jumbotron" id="leftTable">
+                <h2>Mortgage Applications</h2>
+                <div id="lTable">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>Mortgage Application Name</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>example house</td>
+                                <td>declined <button onclick="reason();">Reason</button></td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+                <div id="reason" style="display:none">
+                    <button id="cancelPayment" onclick="cancelReason()" type="button" class="close" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <br /><br />
+                    Mortgage loan declined due to insufficient credit score.
+                </div>
+            </div>
+            <div class="jumbotron" id="rightTable">
+                <h2>Active Mortgages</h2>
+                <div id="rTable">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>Mortgage Name</th>
+                                <th>Mortgage Balance</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>example house</td>
+                                <td>$120.00 <button onclick="payment()">Make A payment</button></td>
+
+                            </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+                <div id="makePayment" style="display:none">
+                    <button id="cancelPayment" onclick="cancelPayment()" type="button" class="close" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <br /><br />
+                    Payment Amount:<br /><input id="payment" onblur="payValidate()" type="number" placeholder="0.00" step=".01" />
+                    <div class="addressError" id="paymentError" style="display:none">
+                        You cannot make payments less than $1.00
+                    </div>
+                    <br /><br />
+                    <button type="submit" class="btn btn-warning" role="button" onclick="payValidate()">Submit</button>
+
+                </div>
+
+            </div>
+        </div>
+
     </div>
-    <div class="col-md-4">
-        <h2>Web Hosting</h2>
-        <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301872">Learn more &raquo;</a></p>
+
+
+    <div id="apply" style="display:none">
+
+        <h1>Apply for a new Mortgage:</h1>
+        <div class="container" id="applyLeft">
+            <form id="newMortgage">
+
+                <br /><br /><br />
+                Amount:<br /><input type="number" placeholder="0.00" step=".01" id="applicationAmount" onblur="checkAmount()" />
+                <br />
+                Currency:<br />
+                <select id="currency">
+                    <option selected="selected" value="USD">USD</option>
+                    <option value="CAD">CAD</option>
+                </select>
+                <br /><br />
+
+                SSN: <br /><input type="text" id="SSN" placeholder="xxx-xx-xxxx" onblur="checkSSN()" />
+                <div id="errorSSN" style="display:none">
+                    Please Enter a valid SSN
+                </div>
+                <br /><br /><br />
+                Mortgage Title:<br />
+                <input type="text" id="mortgageTitle" onblur="checkTitle()" />
+                <div id="errorMT" style="display:none">
+                    Title cannot be blank
+                </div>
+                <br /><br />
+                Description:<br />
+                <br /><br />
+                <textarea id="mortDescr" rows="6" cols="50"> </textarea>
+                <div id="mortDescrError" style="display:none">
+                    Description cannot be blank
+                </div>
+                <br /><br />
+                <button type="submit" class="btn btn-warning" role="button" onclick="applyValidate()">Submit</button>
+                <div id="noFields" style="display:none"><br />All fields must be filled out</div>
+            </form>
+
+        </div>
+        <div class="container" id="applyRight">
+
+            <br /><br /><br />
+            <!-- Got this from https://bootsnipp.com/snippets/featured/generic-postal-address-form -->
+            <div class="row">
+                <form class="form-horizontal" id="addressForm">
+                    <fieldset>
+                        <!-- Address form -->
+
+                        <h2>Address</h2>
+
+                        <!-- full-name input-->
+                        <div class="control-group">
+                            <label class="control-label">First Name</label>
+                            <div class="controls">
+                                <input id="first-name" onblur="checkAddress()" name="first-name" type="text" placeholder="first name"
+                                       class="input-xlarge">
+                                <div class="addressError" style="display:none">
+                                    Required Field
+                                </div><br />
+                                <label class="control-label">Last Name</label>
+                                <br />
+                                <input id="last-name" onblur="checkAddress()" name="last-name" type="text" placeholder="last name"
+                                       class="input-xlarge">
+                                <div class="addressError" style="display:none">
+                                    Required Field
+                                </div>
+                                <p class="help-block"></p>
+                            </div>
+                        </div>
+                        <!-- address-line1 input-->
+                        <div class="control-group">
+                            <label class="control-label">Address Line 1</label>
+                            <div class="controls">
+                                <input id="address-line1" onblur="checkAddress()" name="address-line1" type="text" placeholder="address line 1"
+                                       class="input-xlarge">
+                                <div class="addressError" style="display:none">
+                                    Required Field
+                                </div>
+                                <p class="help-block">Street address, P.O. box, company name, c/o</p>
+                            </div>
+                        </div>
+                        <!-- address-line2 input-->
+                        <div class="control-group">
+                            <label class="control-label">Address Line 2</label>
+                            <div class="controls">
+                                <input id="address-line2" name="address-line2" type="text" placeholder="address line 2"
+                                       class="input-xlarge">
+                                <p class="help-block">Apartment, suite , unit, building, floor, etc.</p>
+                            </div>
+                        </div>
+                        <!-- city input-->
+                        <div class="control-group">
+                            <label class="control-label">City / Town</label>
+                            <div class="controls">
+                                <input id="city" onblur="checkAddress()" name="city" type="text" placeholder="city" class="input-xlarge">
+                                <div class="addressError" style="display:none">
+                                    Required Field
+                                </div>
+                                <p class="help-block"></p>
+                            </div>
+                        </div>
+                        <!-- region input-->
+                        <div class="control-group">
+                            <label class="control-label">State / Province / Region</label>
+                            <div class="controls">
+                                <input id="region" name="region" onblur="checkAddress()" type="text" placeholder="state / province / region"
+                                       class="input-xlarge">
+                                <div class="addressError" style="display:none">
+                                    Required Field
+                                </div>
+                                <p class="help-block"></p>
+
+                            </div>
+                        </div>
+                        <!-- postal-code input-->
+                        <div class="control-group">
+                            <label class="control-label">Zip / Postal Code</label>
+                            <div class="controls">
+                                <input id="postal-code" onblur="checkAddress()" name="postal-code" type="text" placeholder="zip or postal code"
+                                       class="input-xlarge">
+                                <div class="addressError" style="display:none">
+                                    Required Field
+                                </div>
+                                <p class="help-block"></p>
+                            </div>
+                        </div>
+                        <!-- country select -->
+                        <div class="control-group">
+                            <label class="control-label">Country</label>
+                            <div class="controls">
+                                <select id="country" name="country" class="input-xlarge">
+                                    <option value="">(please select a country)</option>
+                                    <option value="CA">Canada</option>
+                                    <option value="US" selected="selected">United States</option>
+                                </select>
+
+                            </div>
+
+
+                        </div>
+                    </fieldset>
+                    <div class="addressError" style="display:none">
+                        Please fill out required fields
+                    </div>
+                </form>
+
+            </div>
+        </div>
     </div>
+
+    <div id="service" style="display:none">
+        <form id="cases">
+            <h1>Customer Service Center</h1>
+            <br /><br />
+            <h3>New Case</h3>
+            <br /><br />
+
+            Mortgage ID Number:<br />
+            <input type="text" id="titl" />
+            <div id="titlError" style="display:none" onblur="caseValidate()">This field cannot be empty</div>
+            <br /><br />
+
+            Description:<br />
+            <br /><br />
+            <textarea rows="6" cols="50" id="desc" onblur="caseValidate()"> </textarea>
+            <div id="descError" style="display:none">This field cannot be empty</div>
+            <br /><br />
+            <button type="submit" class="btn btn-warning" role="button" onclick="caseSubmit()">Submit</button>
+        </form>
+        <br /><br />
+        <h3>Active Cases</h3>
+        <br />
+        <div class="jumbotron" id="bottomTable">
+            <div id="caseTable">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>Case ID</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>123456789</td>
+                            <td>Example Complaint. blah blah blah blah <button onclick="openCase()">More Info</button></td>
+
+                        </tr>
+
+                    </tbody>
+                </table>
+            </div>
+            <div id="case" style="display:none">
+                <button id="cancelPayment" onclick="closeCase()" type="button" class="close" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <br /><br />
+                Details of the case here.
+                <br /><br />
+                blah blah blah blah<br />
+                blah blah blah...
+            </div>
+
+        </div>
+
+    </div>
+
+    <div id="help" style="display:none">
+
+
+    </div>
+
 </div>
