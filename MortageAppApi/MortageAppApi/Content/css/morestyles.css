@@ -45,8 +45,11 @@ h1,h2,h3,h4,h5 {
     font-family: Oswald;
 }
 #teamPictures {
-    margin-top: 30px;
+    margin-top: 100px;
 }
 footer {
     text-align: center;
+}
+#secondBlock {
+    margin-top: 20px;
 }
