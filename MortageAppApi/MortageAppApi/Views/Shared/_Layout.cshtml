@@ -9,9 +9,8 @@
     <title>
         Mortàge
     </title>
-
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" />
-    <link rel="stylesheet" type="text/css" href="style/main.css" />
 
     <style>
         #top {
@@ -71,12 +70,32 @@
             width: 50%;
         }
 
-        #titlError, #descError, #errorSSN, #errorMT, .addressError {
+        #titlError, #descError, #errorSSN, #errorMT, #mortDescrError, .addressError {
             color: orangered;
         }
 
         #cancelPayment {
             float: right;
+        }
+
+        .success_notification {
+            position: fixed;
+            top: 400px;
+            position: fixed;
+            width: 500px;
+            height: 200px;
+            margin: 5% auto; /* Will not center vertically and won't work in IE6/7. */
+            left: 0;
+            right: 0;
+            background-color: black;
+            opacity: 0.75;
+            color: white;
+            padding: 10px;
+            width: 400px;
+            height: 60px;
+            border-radius: 5px;
+            text-align: center;
+            vertical-align: middle;
         }
     </style>
 
@@ -214,15 +233,55 @@
 
             if (caseValidate()) {
                 var Case = {
-                    "Case": [
+
+                    "Case":
 
                         {
-                            "Mortgage": document.getElementById("titl").value,
-                            "caseDescription": document.getElementById("desc").value
+
+                            "mortgageid": document.getElementById("titl").value,
+
+                            "customer": "3DAB67CF-18B5-E811-A95C-000D3A3AB637",
+
+                            "description": document.getElementById("desc").value
+
                         }
-                    ]
+
+
+
                 };
                 console.log(Case);
+
+                $(document).ready(function () {
+                    $('#successCase').fadeIn(500);
+                    $('#successCase').delay(3000).fadeOut(500);
+                });
+
+                $.ajax({
+
+                    type: 'POST',
+
+                    url: 'http://localhost:52721/api/application',
+
+                    data: JSON.stringify(Case),
+
+                    contentType: "application/json",
+
+                    dataType: 'JSON',
+
+                    success: function () {
+
+                        console.log("Success");
+
+                    },
+
+                    Error: function () {
+
+                        console.log("ERROR");
+
+                    }
+
+                });
+
             }
 
         }
@@ -280,6 +339,25 @@
 
 
         //Mortgage Apply form validation
+
+
+        function mortDescr() {
+            var mortDescr = document.getElementById("mortDescr").value;
+
+            if (mortDescr === "") {
+                $(document).ready(function () {
+                    $('mortDescrError').slideDown(500);
+                });
+                return false;
+            }
+            else {
+                $(document).ready(function () {
+                    $('mortDescrError').slideUp(500);
+                });
+                return true;
+            }
+
+        }
 
 
 
@@ -355,6 +433,7 @@
 
 
         function applyValidate() {
+            mortDescr();
             checkAmount();
             checkSSN();
             checkTitle();
@@ -363,27 +442,33 @@
                 {
 
                     //checks if all conditions are evaluating true
-                    var Application = {
-                        "MortgageApplication":
+                    //alert(String(mortDescr()) + " " + String(checkSSN()) + " " + String(checkTitle()) + " " + String(checkAddress()));
 
-                            {
-                                "ssn": document.getElementById("SSN").value, "currency": document.getElementById("currency").value,
-                                "mortgageTitle": document.getElementById("mortgageTitle").value,
-                                "amount": document.getElementById("applicationAmount").value, "firstName": document.getElementById("first-name").value,
-                                "lastName": document.getElementById("last-name").value, "address1": document.getElementById("address-line1").value,
-                                "address2": document.getElementById("address-line2").value, "cityOrTown": document.getElementById("city").value,
-                                "stateOrProvince": document.getElementById("region").value, "zip": document.getElementById("postal-code").value,
-                                "country": document.getElementById("country").value
-                            }
+
+                    var Application = {
+                        "ssn": document.getElementById("SSN").value,
+                        "currency": document.getElementById("currency").value,
+                        "mortgageTitle": document.getElementById("mortgageTitle").value, "description": document.getElementById("mortDescr").value,
+                        "amount": document.getElementById("applicationAmount").value, "firstName": document.getElementById("first-name").value,
+                        "lastName": document.getElementById("last-name").value, "address1": document.getElementById("address-line1").value,
+                        "address2": document.getElementById("address-line2").value, "cityOrTown": document.getElementById("city").value,
+                        "stateOrProvince": document.getElementById("region").value, "zip": document.getElementById("postal-code").value,
+                        "country": document.getElementById("country").value
                     };
                     console.log(Application);
+
+
+                    $(document).ready(function () {
+                        $('#successApply').fadeIn(500);
+                        $('#successApply').delay(3000).fadeOut(500);
+                    });
 
 
                     $.ajax({
 
                         type: 'POST',
 
-                        url: 'http://mortage.azurewebsites.net/api/application',
+                        url: 'http://localhost:52721/api/application',
 
                         data: JSON.stringify(Application),
 
@@ -394,7 +479,6 @@
                         success: function () {
 
                             console.log("Success");
-
                         },
 
                         Error: function () {
@@ -419,11 +503,160 @@
                 $(document).ready(function () {
                     $('#paymentError').slideDown(500);
                     $('#paymentError').slideUp(3000);
+
                 });
+                return false;
+            }
+            else {
+                return true;
             }
 
         }
 
+        function paySubmit() {
+            payValidate();
+
+            if (payValidate()) {
+                var Payment = {
+                    "Payment":
+
+                        {
+                            "mortgageid": "201809-001121",
+                            "payAmount": (document.getElementById("payment").value).toString()
+                        }
+
+                };
+                console.log(Payment);
+                $(document).ready(function () {
+                    $('#successPay').fadeIn(500);
+                    $('#successPay').delay(3000).fadeOut(500);
+                });
+
+                $.ajax({
+
+                    type: 'POST',
+
+                    url: 'http://localhost:52721/api/pay',
+
+                    data: JSON.stringify(Case),
+
+                    contentType: "application/json",
+
+                    dataType: 'JSON',
+
+                    success: function () {
+
+                        console.log("Success");
+
+                    },
+
+                    Error: function () {
+
+                        console.log("ERROR");
+
+                    }
+
+                });
+
+            }
+
+
+        }
+
+
+
+        function getPost() {
+            var url = "http://localhost:52721/api/dashboard?guidContact=3DAB67CF-18B5-E811-A95C-000D3A3AB637"/*My api*/;
+            //var user = newQuery;
+            $.ajax({
+                type: "GET",
+                url: url,
+                dataType: "json",
+                success: function (responseText, status) {
+                    if (responseText != null) {
+                        if (status == "success") {
+                            var col = [];
+                            for (var i = 0; i < responseText.length; i++) {
+                                for (var key in responseText[i]) {
+                                    if (col.indexOf(key) === -1) {
+                                        col.push(key);
+                                    }
+                                }
+                            }
+                            var table = document.createElement("table");
+                            var tr = table.insertRow(-1);
+                            //adds header titles
+                            for (var i = 0; i < col.length; i++) {
+                                var th = document.createElement("th");      // TABLE HEADER.
+                                th.innerHTML = col[i];
+                                tr.appendChild(th);
+                            }
+                            //Add rows
+                            for (var i = 0; i < col.length; i++) {
+                                tr = table.insertRow(-1);
+                                for (var j = 0; j < col.length; j++) {
+                                    var tabCell = tr.insertCell(-1);
+                                    tabCell.innerHTML = responseText[i][col[j]];
+                                }
+                            }
+                            var divContainer = document.getElementById("showData");
+                            divContainer.innerHTML = "";
+                            divContainer.appendChild(table);
+                        }
+
+                    }
+                    else {
+                        alert("error");
+                    }
+                }
+            })
+        }
+        function getPost1() {
+            var url = "http://localhost:52721/api/case?contactID=3DAB67CF-18B5-E811-A95C-000D3A3AB637"/*My api*/;
+            //var user = newQuery;
+            $.ajax({
+                type: "GET",
+                url: url,
+                dataType: "json",
+                success: function (responseText, status) {
+                    if (responseText != null) {
+                        if (status == "success") {
+                            var col = [];
+                            for (var i = 0; i < responseText.length; i++) {
+                                for (var key in responseText[i]) {
+                                    if (col.indexOf(key) === -1) {
+                                        col.push(key);
+                                    }
+                                }
+                            }
+                            var table = document.createElement("table");
+                            var tr = table.insertRow(-1);
+                            //adds header titles
+                            for (var i = 0; i < col.length; i++) {
+                                var th = document.createElement("th");      // TABLE HEADER.
+                                th.innerHTML = col[i];
+                                tr.appendChild(th);
+                            }
+                            //Add rows
+                            for (var i = -1; i < col.length; i++) {
+                                tr = table.insertRow(-1);
+                                for (var j = 0; j < col.length; j++) {
+                                    var tabCell = tr.insertCell(-1);
+                                    tabCell.innerHTML = responseText[i][col[j]];
+                                }
+                            }
+                            var divContainer = document.getElementById("showData1");
+                            divContainer.innerHTML = "";
+                            divContainer.appendChild(table);
+                        }
+
+                    }
+                    else {
+                        alert("error");
+                    }
+                }
+            })
+        }
 
 
 
@@ -447,6 +680,18 @@
             </ul>
         </div>
     </nav>
+
+    <div id="successApply" class="success_notification" style="display:none">
+        <h4>Mortgage application submited successfuly</h4>
+    </div>
+
+    <div id="successCase" class="success_notification" style="display:none">
+        <h4>Service case submited successfuly</h4>
+    </div>
+
+    <div id="successPay" class="success_notification" style="display:none">
+        <h4>Payment submited successfuly</h4>
+    </div>
 
     <div class="container body-content">
         @RenderBody()

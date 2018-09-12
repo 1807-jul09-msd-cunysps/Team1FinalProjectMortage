@@ -1,5 +1,6 @@
 ﻿<div class="jumbotron" id="top">
 
+
     <div id="home">
 
         <div class="jumbotron" id="info">
@@ -8,7 +9,9 @@
         </div>
         <div id="homecontent">
 
-            <div id="left"><h2>Current APR: 1234</h2><br />stuff<br />stuff<br />stuff<br /></div>
+            <div id="left">
+
+            </div>
             <div class="jumbotron" id="right">
                 <h2>Recent Mortgages</h2>
                 <table class="table table-hover">
@@ -38,14 +41,17 @@
 
         </div>
     </div>
-
+    <!--My Mortgages-->
     <div id="mortgage" style="display:none">
         <div class="jumbotron" id="info">
             <h2> Total Balance: $0.00 <br /></h2>
             <h3> Number of outstanding loans: 0 <br /></h3>
         </div>
+        <button id="buttontest" onclick="getPost()">click me for your mortgages</button>
+        <div id="showData"></div>
 
-
+        <button id="buttontest1" onclick="getPost1()">click me for all cases</button>
+        <div id="showData1"></div>
         <div id="homecontent">
             <div class="jumbotron" id="leftTable">
                 <h2>Mortgage Applications</h2>
@@ -99,12 +105,12 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                     <br /><br />
-                    Payment Amount:<br /><input id="payment" onblur="payValidate()" type="number" placeholder="0.00" step=".01" />
+                    Payment Amount:<br /><input id="payment" onblur="payValidate()" type="number" placeholder="0.00" step=".01" value="525.17" readonly />
                     <div class="addressError" id="paymentError" style="display:none">
                         You cannot make payments less than $1.00
                     </div>
                     <br /><br />
-                    <button type="submit" class="btn btn-warning" role="button" onclick="payValidate()">Submit</button>
+                    <button type="submit" class="btn btn-warning" role="button" onclick="paySubmit()">Submit</button>
 
                 </div>
 
@@ -143,7 +149,7 @@
                 <br /><br />
                 Description:<br />
                 <br /><br />
-                <textarea id="mortDescr" rows="6" cols="50"> </textarea>
+                <textarea id="mortDescr" rows="6" cols="50" onblur="mortDescr()"> </textarea>
                 <div id="mortDescrError" style="display:none">
                     Description cannot be blank
                 </div>
