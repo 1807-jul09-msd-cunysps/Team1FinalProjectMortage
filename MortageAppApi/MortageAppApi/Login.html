@@ -12,17 +12,7 @@
 
     <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" />
 
-    <style>
-        #loginBox {
-            background-color: #465670;
-            color: white;
-            width: 30%;
-            margin-left: 300px;
-            margin-right: auto;
-            margin-top: 240px;
-            position: absolute;
-        }
-
+       <style>
         #user {
             width: 75%;
         }
@@ -37,20 +27,6 @@
 
         #passError {
             color: orangered;
-        }
-
-        #foot {
-            position: absolute;
-            bottom: 0;
-            width: 100%;
-        }
-
-        #logo {
-            margin-top: 20px;
-            float: left;
-            float: right;
-            margin-right: 180px;
-            width: 75%;
         }
 
         .fail_notification {
@@ -170,68 +146,59 @@
 <body onload="start()">
 
     <div class="container">
-
-
-        <img id="logo" src="../../Content/Images/MortageLogo.svg" class="img-fluid" alt="Responsive image">
-
-
-
-
-        <div class="jumbotron" id="loginBox">
-
-            <div id="loginFail" class="fail_notification" style="display:none">
-                <h4>Invalid login credentials</h4>
+        <div class="row">
+            <div class="col-sm-12">
+                <img id="logo" src="../../Content/Images/MortageLogo.svg" class="img-fluid center-block" alt="Responsive image">
             </div>
-
-            <div class="form-group row">
-                <label for="user" class="col-2 col-form-label">Username</label>
-                <div class="col-10">
-                    <input class="form-control" type="text" value="" id="user" required>
-                    <br /><div id="userError" style="display:none">Please enter a Username</div>
-                </div>
-            </div>
-            <div class="form-group row">
-                <label for="pass" class="col-2 col-form-label">Password</label>
-                <div class="col-10">
-                    <input class="form-control" type="password" value="" id="pass" required>
-                    <br /><div id="passError" style="display:none">Please enter a Password</div>
-                </div>
-
-                <br />
-                <button type="submit" class="btn btn-warning" role="button" onclick="validate()">Login</button>
-
-            </div>
-
-
         </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="jumbotron" id="loginBox">
+
+                    <div id="loginFail" class="fail_notification" style="display:none">
+                        <h4>Invalid login credentials</h4>
+                    </div>
+
+                    <div class="form-group row">
+                        <label for="user" class="col-2 col-form-label center-block text-center">Username</label>
+                        <div class="col-10">
+                            <input class="form-control center-block" type="text" value="" id="user" required>
+                            <br /><div id="userError" style="display:none">Please enter a Username</div>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="pass" class="col-2 col-form-label center-block text-center">Password</label>
+                        <div class="col-10">
+                            <input class="form-control center-block" type="password" value="" id="pass" required>
+                            <br /><div id="passError" style="display:none">Please enter a Password</div>
+                        </div>
+
+                        <br />
+                        <button type="submit" class="btn btn-warning center-block" role="button" onclick="validate()">Login</button>
+
+                    </div>
 
 
-
-
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <footer class="page-footer font-small">
+                    <h5 class="text-smal text-center">All content on this site is the exclusive property of Mortàge LLC</h5>
+                    <div class="footer-copyright text-center py-3">
+                        © 2018 Copyright:
+                        <a href="https://revature.com/"> https://mortàge.com</a>
+                    </div>
+                </footer>
+            </div>
+        </div>
     </div>
 
 
 
 
-    <footer class="page-footer font-small blue pt-4" id="foot">
-        <div class="container-fluid text-center text-md-left">
-
-            <div class="row">
-                <div class="col-md-6 mt-md-0 mt-3">
-                    <h5 class="text-small">All content on this site is the exclusive property of Mortàge LLC</h5>
-
-                </div>
-
-                <hr class="clearfix w-100 d-md-none pb-3">
-
-            </div>
-
-        </div>
-        <div class="footer-copyright text-center py-3">
-            © 2018 Copyright:
-            <a href="https://revature.com/"> https://mortàge.com</a>
-        </div>
-    </footer>
+    
 </body>
 
 </html>
