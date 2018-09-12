@@ -101,7 +101,32 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 
     <script>
+        function checkLoginStatus() {
+            if (sessionStorage.getItem('userName') == null) {
+                $(document).ready(function () {
+                    $("#login a").text("Login");
+                    //$('#ServiceButton').addClass("hidden");
+                    //$('#MortgageButton').addClass("hidden");
+                    //$('#ApplyButton').addClass("hidden");
+                    //$('#mortgage').addClass("hidden");
+                    //$('home').removeClass("hidden");
+                });
+            }
+            else if (sessionStorage.getItem('userName') != null) {
+                $(document).ready(function () {
+                    $("#login a").text("Log Out");
+                    //$('#ServiceButton').removeClass("hidden");
+                    //$('#MortgageButton').removeClass("hidden");
+                    //$('#ApplyButton').removeClass("hidden");
+                    //$('#mortgage').removeClass("hidden");
+                    //$('home').removeClass("hidden");
+                });
+            }
+        }
 
+        $(document).ready(function () {
+            checkLoginStatus();
+        });
 
         function fillData() {
 
@@ -594,6 +619,8 @@
                             var container = document.querySelector("#rTable.mortgage");
                             container.innerHTML = "";
                             container.appendChild(mortgageTable);
+
+                            console.log(container);
                         }
 
                     }
@@ -656,26 +683,23 @@
                 }
             })
         }
-
-
-
     </script>
 
 </head>
 <body onload="fillData()">
     <img id="image" src="~/Content/Images/Background.jpg" class="img-fluid" alt="Responsive image">
 
-    <nav class="navbar navbar-inverse">
+    <nav class="navbar navbar-inverse" onload="checkLoginStatus()">
         <div class="container-fluid">
             <div class="navbar-header">
                 <a class="navbar-brand" onclick="loadHome()" href="#">Home</a>
             </div>
             <ul class="nav navbar-nav">
-                <li onclick="loadMortgage()"><a href="#">My Mortgages</a></li>
-                <li onclick="loadApply()"><a href="#">Apply</a></li>
-                <li onclick="loadService()"><a href="#">Customer Service</a></li>
-                <li style="display: none;" onclick="loadHelp()"><a href="#">Help</a></li>
-                <li class="active" id="logout" onlclick="killSession()"><a href="Login.html">Logout</a></li>
+                <li id="MortgageButton" onclick="loadMortgage()"><a href="#">My Mortgages</a></li>
+                <li id="ApplyButton" onclick="loadApply()"><a href="#">Apply</a></li>
+                <li id="ServiceButton" onclick="loadService()"><a href="#">Customer Service</a></li>
+                <li class="active" id="login" onlclick="killSession()"><a href="Login.html">Login</a></li>
+                <li class="active" id="logout" onlclick="killSession()"><a href="Login.html" style="display:none">Logout</a></li>
             </ul>
         </div>
     </nav>
