@@ -5,7 +5,11 @@
 
         <div class="jumbotron" id="info">
             <h2 id="welcome"> Welcome Back, John Doe</h2>
-            <h4 id="accountInfo">  Total Balance:$0.00<br />Number of Mortgages: 0<br />Active Cases: 0<br /></h4>
+            <div id="accountInfo" style="display: none;">
+                <h4>Total Balance:$0.00</h4>
+                <h4>Number of Mortgages: 0</h4>
+                <h4>Active Cases: 0</h4>
+            </div>
         </div>
         <div id="homecontent">
 
@@ -47,11 +51,10 @@
             <h2> Total Balance: $0.00 <br /></h2>
             <h3> Number of outstanding loans: 0 <br /></h3>
         </div>
-        <button id="buttontest" onclick="getPost()">click me for your mortgages</button>
-        <div id="showData"></div>
 
-        <button id="buttontest1" onclick="getPost1()">click me for all cases</button>
-        <div id="showData1"></div>
+        @*<button id="buttontest1" onclick="getPost1()">click me for all cases</button>
+        <div id="showData1"></div>*@
+
         <div id="homecontent">
             <div class="jumbotron" id="leftTable">
                 <h2>Mortgage Applications</h2>
@@ -82,21 +85,11 @@
             </div>
             <div class="jumbotron" id="rightTable">
                 <h2>Active Mortgages</h2>
-                <div id="rTable">
-                    <table class="table table-hover">
-                        <thead>
-                            <tr>
-                                <th>Mortgage Name</th>
-                                <th>Mortgage Balance</th>
-                            </tr>
+                <div id="rTable" class="mortgage">
+                    <table class="table table-hover mortgage">
+                        <thead class="mortgage">
                         </thead>
-                        <tbody>
-                            <tr>
-                                <td>example house</td>
-                                <td>$120.00 <button onclick="payment()">Make A payment</button></td>
-
-                            </tr>
-
+                        <tbody class="mortgage">
                         </tbody>
                     </table>
                 </div>
@@ -280,50 +273,52 @@
             <br /><br />
 
             Mortgage ID Number:<br />
-            <input type="text" id="titl" />
+            <input class="form-control" type="text" id="titl" />
             <div id="titlError" style="display:none" onblur="caseValidate()">This field cannot be empty</div>
             <br /><br />
 
             Description:<br />
             <br /><br />
-            <textarea rows="6" cols="50" id="desc" onblur="caseValidate()"> </textarea>
+            <textarea class="form-control" rows="6" cols="50" id="desc" onblur="caseValidate()"> </textarea>
             <div id="descError" style="display:none">This field cannot be empty</div>
             <br /><br />
             <button type="submit" class="btn btn-warning" role="button" onclick="caseSubmit()">Submit</button>
         </form>
         <br /><br />
-        <h3>Active Cases</h3>
-        <br />
-        <div class="jumbotron" id="bottomTable">
-            <div id="caseTable">
-                <table class="table table-hover">
-                    <thead>
-                        <tr>
-                            <th>Case ID</th>
-                            <th>Description</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>123456789</td>
-                            <td>Example Complaint. blah blah blah blah <button onclick="openCase()">More Info</button></td>
-                        </tr>
+              <div style="display: none;">
+                  <h3>Active Cases</h3>
+                  <br />
+                  <div class="jumbotron" id="bottomTable">
+                      <div id="caseTable">
+                          <table class="table table-hover">
+                              <thead>
+                                  <tr>
+                                      <th>Case ID</th>
+                                      <th>Description</th>
+                                  </tr>
+                              </thead>
+                              <tbody>
+                                  <tr>
+                                      <td>123456789</td>
+                                      <td>Example Complaint. blah blah blah blah <button onclick="openCase()">More Info</button></td>
+                                  </tr>
 
-                    </tbody>
-                </table>
-            </div>
-            <div id="case" style="display:none">
-                <button id="cancelPayment" onclick="closeCase()" type="button" class="close" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-                <br /><br />
-                Details of the case here.
-                <br /><br />
-                blah blah blah blah<br />
-                blah blah blah...
-            </div>
+                              </tbody>
+                          </table>
+                      </div>
+                      <div id="case" style="display:none">
+                          <button id="cancelPayment" onclick="closeCase()" type="button" class="close" aria-label="Close">
+                              <span aria-hidden="true">&times;</span>
+                          </button>
+                          <br /><br />
+                          Details of the case here.
+                          <br /><br />
+                          blah blah blah blah<br />
+                          blah blah blah...
+                      </div>
 
-        </div>
+                  </div>
+              </div>
 
     </div>
 
