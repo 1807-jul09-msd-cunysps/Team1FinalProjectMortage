@@ -2,43 +2,11 @@
 
 
     <div id="home">
-
-        <div class="jumbotron" id="info">
-            <h2 id="welcome"> Welcome Back, John Doe</h2>
-            <div id="accountInfo" style="display: none;">
-                <h4>Total Balance:$0.00</h4>
-                <h4>Number of Mortgages: 0</h4>
-                <h4>Active Cases: 0</h4>
-            </div>
-        </div>
-        <div id="homecontent">
-
-            <div id="left">
-
-            </div>
-            <div class="jumbotron" id="right">
-                <h2>Recent Mortgages</h2>
-                <table class="table table-hover recent">
-                    <thead>
-                        <tr>
-                            <th>Mortgage Name</th>
-                            <th>Mortgage Balance</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                    </tbody>
-                </table>
-            </div>
-
-        </div>
+        <img id="family" src="~/Content/Images/family.jpg" />
     </div>
     <!--My Mortgages-->
     <div id="mortgage" style="display:none">
-        <div class="jumbotron" id="info">
-            <h2> Total Balance: $0.00 <br /></h2>
-            <h3> Number of outstanding loans: 0 <br /></h3>
-        </div>
-
+        
         @*<button id="buttontest1" onclick="getPost1()">click me for all cases</button>
         <div id="showData1"></div>*@
 
@@ -71,13 +39,13 @@
                 </div>
             </div>
             <div class="jumbotron" id="rightTable">
+                <h1 id="welcome"> Welcome Back, John Doe</h1>
                 <h2>Active Mortgages</h2>
                 <div id="rTable" class="mortgage">
                     <table class="table table-hover mortgage">
                         <thead class="mortgage">
                         </thead>
-                        <tbody class="mortgage">
-                        </tbody>
+                        <tbody class="mortgage"></tbody>
                     </table>
                 </div>
                 <div id="makePayment" style="display:none">
@@ -105,18 +73,17 @@
         <h1>Apply for a new Mortgage:</h1>
         <div class="container" id="applyLeft">
             <form id="newMortgage">
-
                 <!-- full-name input-->
                 <h2>Name</h2>
                 <div class="form-group">
-                    <label class="control-label">First Name</label>
+                    <label class="control-label" for="first-name">First Name</label>
                     <div class="controls">
                         <input id="first-name" onblur="checkAddress()" name="first-name" type="text" placeholder="First Name"
                                class="form-control">
                         <div class="addressError" style="display:none">
                             Required Field
                         </div><br />
-                        <label class="control-label">Last Name</label>
+                        <label class="control-label" for="last-name">Last Name</label>
                         <br />
                         <input id="last-name" onblur="checkAddress()" name="last-name" type="text" placeholder="Last Name"
                                class="form-control">
@@ -129,27 +96,27 @@
                 <!-- MORTGAGE PART-->
                 <h3>Mortgage</h3>
                 <div class="form-group">
-                    <label class="control-label">Mortgage Title:</label>
+                    <label class="control-label" for="mortgageTitle">Mortgage Title:</label>
                     <input type="text" id="mortgageTitle" onblur="checkTitle()" class="form-control" />
                     <div id="errorMT" style="display:none">
                         Title cannot be blank
                     </div>
                     <br />
-                    <label class="control-label">Amount:</label><br /><input type="number" placeholder="0.00" step=".01" id="applicationAmount" onblur="checkAmount()" class="form-control" />
+                    <label class="control-label" for="applicationAmount">Amount:</label><br /><input type="number" placeholder="0.00" step=".01" id="applicationAmount" onblur="checkAmount()" class="form-control" />
                     <br />
-                    <label class="control-label">Currency</label><br />
+                    <label class="control-label" for="currency">Currency</label><br />
                     <select id="currency" class="form-control">
                         <option selected="selected" value="USD">USD</option>
                         <option value="CAD">CAD</option>
                     </select>
                     <br />
-                    <label class="control-label">Social Security Number:</label>
+                    <label class="control-label" for="SSN">Social Security Number:</label>
                     <input type="text" id="SSN" placeholder="xxx-xx-xxxx" onblur="checkSSN()" class="form-control" />
                     <div id="errorSSN" style="display:none">
                         Please Enter a valid SSN
                     </div>
                     <br />
-                    <label class="control-label">Description:</label>
+                    <label class="control-label" for="mortDescr">Description:</label>
                     <textarea id="mortDescr" rows="6" cols="50" onblur="mortDescr()" class="form-control"> </textarea>
                     <div id="mortDescrError" style="display:none">
                         Description cannot be blank
@@ -173,7 +140,7 @@
                         <h2>Address</h2>
                         <!-- address-line1 input-->
                         <div class="control-group">
-                            <label class="control-label">Address Line 1</label>
+                            <label class="control-label" for="address-line1">Address Line 1</label>
                             <div class="controls">
                                 <input id="address-line1" onblur="checkAddress()" name="address-line1" type="text" placeholder="Address Line 1"
                                        class="form-control">
@@ -185,7 +152,7 @@
                         </div>
                         <!-- address-line2 input-->
                         <div class="control-group">
-                            <label class="control-label">Address Line 2</label>
+                            <label class="control-label" for="address-line2">Address Line 2</label>
                             <div class="controls">
                                 <input id="address-line2" name="address-line2" type="text" placeholder="Address Line 2"
                                        class="form-control">
@@ -194,7 +161,7 @@
                         </div>
                         <!-- city input-->
                         <div class="control-group">
-                            <label class="control-label">City / Town</label>
+                            <label class="control-label" for="city">City / Town</label>
                             <div class="controls">
                                 <input id="city" onblur="checkAddress()" name="city" type="text" placeholder="City" class="form-control">
                                 <div class="addressError" style="display:none">
@@ -205,7 +172,7 @@
                         </div>
                         <!-- region input-->
                         <div class="control-group">
-                            <label class="control-label">State / Province / Region</label>
+                            <label class="control-label" for="region">State / Province / Region</label>
                             <div class="controls">
                                 <input id="region" name="region" onblur="checkAddress()" type="text" placeholder="State / Province / Region"
                                       class="form-control">
@@ -218,7 +185,7 @@
                         </div>
                         <!-- postal-code input-->
                         <div class="control-group">
-                            <label class="control-label">Zip / Postal Code</label>
+                            <label class="control-label" for="postal-code">Zip / Postal Code</label>
                             <div class="controls">
                                 <input id="postal-code" onblur="checkAddress()" name="postal-code" type="text" placeholder="Zip / Postal Code"
                                        class="form-control">
@@ -230,7 +197,7 @@
                         </div>
                         <!-- country select -->
                         <div class="control-group">
-                            <label class="control-label">Country</label>
+                            <label class="control-label" for="country">Country</label>
                             <div class="controls">
                                 <select id="country" name="country" class="form-control">
                                     <option value="">(please select a country)</option>

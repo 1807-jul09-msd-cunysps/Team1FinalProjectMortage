@@ -1,1 +1,15 @@
-﻿
+﻿#leftTable, #right {
+    display: none;
+}
+
+#rightTable {
+    width: 100%;
+}
+
+#welcome {
+    font-size: 3em;
+}
+
+#family {
+    width: 100%;
+}

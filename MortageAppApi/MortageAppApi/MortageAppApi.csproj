@@ -253,6 +253,7 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\css\morestyles.css" />
     <Content Include="Content\Images\Background.jpg" />
+    <Content Include="Content\Images\family.jpg" />
     <Content Include="Content\Images\MortageLogo.svg" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
