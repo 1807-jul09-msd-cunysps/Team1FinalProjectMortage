@@ -37,6 +37,7 @@ namespace MortageAppApi.Controllers
                 mortgage.Attributes.Add("mortage_contactid", new EntityReference("contact", myContact));
                 mortgage.Attributes.Add("mortage_amount", new Money(Convert.ToDecimal(app.amount)));
                 mortgage.Attributes.Add("mortage_termmonths", 144);
+                mortgage.Attributes.Add("mortage_description", app.description);
                 mortgage.Attributes.Add("mortage_region", new OptionSetValue(282450000));
                 service.Create(mortgage);
 

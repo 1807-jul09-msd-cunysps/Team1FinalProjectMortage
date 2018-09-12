@@ -15,6 +15,7 @@ namespace MortageAppApi.Models
         public string firstName { get; set; }
         public string lastName { get; set; }
         public string address1 { get; set; }
+        public string description { get; set; }
         public string address2 { get; set; }
         public string cityOrTown { get; set; }
         public string stateOrProvince { get; set; }
