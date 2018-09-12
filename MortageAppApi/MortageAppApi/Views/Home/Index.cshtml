@@ -51,11 +51,10 @@
             <h2> Total Balance: $0.00 <br /></h2>
             <h3> Number of outstanding loans: 0 <br /></h3>
         </div>
-        <button id="buttontest" onclick="getPost()">click me for your mortgages</button>
-        <div id="showData"></div>
 
-        <button id="buttontest1" onclick="getPost1()">click me for all cases</button>
-        <div id="showData1"></div>
+        @*<button id="buttontest1" onclick="getPost1()">click me for all cases</button>
+        <div id="showData1"></div>*@
+
         <div id="homecontent">
             <div class="jumbotron" id="leftTable">
                 <h2>Mortgage Applications</h2>
@@ -86,21 +85,11 @@
             </div>
             <div class="jumbotron" id="rightTable">
                 <h2>Active Mortgages</h2>
-                <div id="rTable">
-                    <table class="table table-hover">
-                        <thead>
-                            <tr>
-                                <th>Mortgage Name</th>
-                                <th>Mortgage Balance</th>
-                            </tr>
+                <div id="rTable" class="mortgage">
+                    <table class="table table-hover mortgage">
+                        <thead class="mortgage">
                         </thead>
-                        <tbody>
-                            <tr>
-                                <td>example house</td>
-                                <td>$120.00 <button onclick="payment()">Make A payment</button></td>
-
-                            </tr>
-
+                        <tbody class="mortgage">
                         </tbody>
                     </table>
                 </div>
