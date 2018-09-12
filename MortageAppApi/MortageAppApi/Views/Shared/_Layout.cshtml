@@ -557,8 +557,8 @@
 
 
         function getPost() {
-            var url = "http://mortage.azurewebsites.net/api/dashboard?guidContact=3DAB67CF-18B5-E811-A95C-000D3A3AB637"/*My api*/;
-            //var user = newQuery;
+            var userGuid = sessionStorage.getItem("guid");
+            var url = "http://mortage.azurewebsites.net/api/dashboard?guidContact="+userGuid;
             $.ajax({
                 type: "GET",
                 url: url,
@@ -612,8 +612,10 @@
         }
 
         function getPost1() {
-            var url = "http://mortage.azurewebsites.net/api/case?contactID=3DAB67CF-18B5-E811-A95C-000D3A3AB637"/*My api*/;
-            //var user = newQuery;
+            var user = sessionStorage.getItem("guid");
+
+            var url = "http://mortage.azurewebsites.net/api/case?contactID=" + userGuid;
+            
             $.ajax({
                 type: "GET",
                 url: url,
