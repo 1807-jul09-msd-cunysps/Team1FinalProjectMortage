@@ -11,5 +11,18 @@
 }
 
 #family {
-    width: 100%;
+    width: 50%;
+    float:left;
+    height:280px;
+    padding-right:25px;
+}
+#family h3 {
+        float:right;
+}
+#hand{
+    width:50%;
+    float:right;
+}
+h3,h1,p{
+font-family:Georgia;
 }
