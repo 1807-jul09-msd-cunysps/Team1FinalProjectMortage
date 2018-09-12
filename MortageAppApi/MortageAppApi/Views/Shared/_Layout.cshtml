@@ -232,23 +232,16 @@
             caseValidate();
 
             if (caseValidate()) {
-                var Case = {
+                var Case =
+                    {
 
-                    "Case":
+                        "mortgageid": document.getElementById("titl").value,
 
-                        {
+                        "customer": "3DAB67CF-18B5-E811-A95C-000D3A3AB637",
 
-                            "mortgageid": document.getElementById("titl").value,
+                        "description": document.getElementById("desc").value
 
-                            "customer": "3DAB67CF-18B5-E811-A95C-000D3A3AB637",
-
-                            "description": document.getElementById("desc").value
-
-                        }
-
-
-
-                };
+                    };
                 console.log(Case);
 
                 $(document).ready(function () {
@@ -260,7 +253,7 @@
 
                     type: 'POST',
 
-                    url: 'http://localhost:52721/api/application',
+                    url: 'http://mortage.azurewebsites.net/api/case',
 
                     data: JSON.stringify(Case),
 
@@ -468,7 +461,7 @@
 
                         type: 'POST',
 
-                        url: 'http://localhost:52721/api/application',
+                        url: 'http://mortage.azurewebsites.net/api/application',
 
                         data: JSON.stringify(Application),
 
@@ -536,7 +529,7 @@
 
                     type: 'POST',
 
-                    url: 'http://localhost:52721/api/pay',
+                    url: 'http://mortage.azurewebsites.net/api/pay',
 
                     data: JSON.stringify(Case),
 
@@ -566,7 +559,7 @@
 
 
         function getPost() {
-            var url = "http://localhost:52721/api/dashboard?guidContact=3DAB67CF-18B5-E811-A95C-000D3A3AB637"/*My api*/;
+            var url = "http://mortage.azurewebsites.net/api/dashboard?guidContact=3DAB67CF-18B5-E811-A95C-000D3A3AB637"/*My api*/;
             //var user = newQuery;
             $.ajax({
                 type: "GET",
@@ -612,7 +605,7 @@
             })
         }
         function getPost1() {
-            var url = "http://localhost:52721/api/case?contactID=3DAB67CF-18B5-E811-A95C-000D3A3AB637"/*My api*/;
+            var url = "http://mortage.azurewebsites.net/api/case?contactID=3DAB67CF-18B5-E811-A95C-000D3A3AB637"/*My api*/;
             //var user = newQuery;
             $.ajax({
                 type: "GET",
@@ -664,7 +657,7 @@
 
 </head>
 <body onload="fillData()">
-    <img id="image" src="Background.jpg" class="img-fluid" alt="Responsive image">
+    <img id="image" src="~/Content/Images/Background.jpg" class="img-fluid" alt="Responsive image">
 
     <nav class="navbar navbar-inverse">
         <div class="container-fluid">
