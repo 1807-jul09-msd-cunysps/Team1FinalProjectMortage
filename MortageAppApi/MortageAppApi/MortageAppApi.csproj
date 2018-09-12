@@ -254,7 +254,13 @@
     <Content Include="Content\css\morestyles.css" />
     <Content Include="Content\Images\Background.jpg" />
     <Content Include="Content\Images\family.jpg" />
+    <Content Include="Content\Images\family2.jpg" />
+    <Content Include="Content\Images\handshake.jpg" />
     <Content Include="Content\Images\MortageLogo.svg" />
+    <Content Include="Content\Images\our-team\bunmi.jpg" />
+    <Content Include="Content\Images\our-team\isaac.jpg" />
+    <Content Include="Content\Images\our-team\max.jpg" />
+    <Content Include="Content\Images\our-team\russell.jpg" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="ApplicationInsights.config">

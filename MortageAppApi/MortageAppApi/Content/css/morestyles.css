@@ -11,7 +11,7 @@
 }
 
 #family {
-    width: 50%;
+    max-width: 50%;
     float:left;
     height:280px;
     padding-right:25px;
@@ -25,4 +25,25 @@
 }
 h3,h1,p{
 font-family:Georgia;
+}
+.team-photo{
+    border-radius: 50%;
+    height: 100px;
+}
+.name,.role {
+    display: block;
+    text-align: center;
+}
+.name {
+    font-family: Oswald;
+    font-size: 1.2em;
+}
+body {
+    font-family: Lato;
+}
+h1,h2,h3,h4,h5 {
+    font-family: Oswald;
+}
+#teamPictures {
+    margin-top: 30px;
 }

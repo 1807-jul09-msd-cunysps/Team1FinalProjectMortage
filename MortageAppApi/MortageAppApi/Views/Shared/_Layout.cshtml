@@ -580,7 +580,7 @@
 
         function getPost() {
             var userGuid = sessionStorage.getItem("guid");
-            var url = "http://mortage.azurewebsites.net/api/dashboard?guidContact="+userGuid;
+            var url = "http://mortage.azurewebsites.net/api/dashboard?guidContact=" + userGuid;
             $.ajax({
                 type: "GET",
                 url: url,
@@ -639,7 +639,7 @@
             var user = sessionStorage.getItem("guid");
 
             var url = "http://mortage.azurewebsites.net/api/case?contactID=" + userGuid;
-            
+
             $.ajax({
                 type: "GET",
                 url: url,
@@ -685,6 +685,7 @@
         }
     </script>
 
+    <link href="https://fonts.googleapis.com/css?family=Lato|Oswald" rel="stylesheet">
 </head>
 <body onload="fillData()">
     <img id="image" src="~/Content/Images/Background.jpg" class="img-fluid" alt="Responsive image">
